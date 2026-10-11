@@ -1,4 +1,4 @@
-import Image from "next/image";
+import "./portrait-annotations.css";
 import { Arrow, Sprig, JoyIcon, Envelope } from "@/components/illustrations";
 import { ProjectGallery } from "@/components/project-gallery";
 import { portfolio } from "@/content/portfolio";
@@ -15,8 +15,49 @@ export default function Home() {
         <section className="hero" aria-labelledby="intro-title">
           <div className="hero-main">
             <figure className="portrait">
-              <Image src="/images/portrait-line-sketch.png" alt="A delicate blue ink sketch of a woman in an áo dài and conical hat, holding a bouquet of lilies." width={1234} height={1274} sizes="(max-width: 700px) 330px, (max-width: 1260px) 45vw, 580px" priority className="portrait-image" />
-              <figcaption><svg viewBox="0 0 68 38" aria-hidden="true"><path d="M65 3C48 30 24 32 6 21m0 0 5 12M6 21l14 1" /></svg><span>A moment, in blue</span></figcaption>
+              <svg
+                className="portrait-image"
+                viewBox="0 0 1232 1277"
+                preserveAspectRatio="xMinYMid meet"
+                role="group"
+                aria-label="Portrait details: nón lá, áo dài, and hoa quỳnh"
+              >
+                <defs>
+                  <filter id="portrait-thin-strokes" filterUnits="userSpaceOnUse" x="0" y="0" width="1232" height="1277">
+                    <feMorphology in="SourceAlpha" operator="erode" radius="1.35" result="thin" />
+                    <feComponentTransfer in="SourceAlpha" result="fine">
+                      <feFuncA type="linear" slope="0.12" />
+                    </feComponentTransfer>
+                    <feMerge><feMergeNode in="fine" /><feMergeNode in="thin" /></feMerge>
+                  </filter>
+                  <mask id="portrait-ink" maskUnits="userSpaceOnUse" x="0" y="0" width="1232" height="1277" style={{ maskType: "alpha" }}>
+                    <image href="/images/portrait-proportions-v14.png" width="1232" height="1277" filter="url(#portrait-thin-strokes)" />
+                  </mask>
+                </defs>
+                <rect width="1232" height="1277" fill="var(--ink)" mask="url(#portrait-ink)" role="img" aria-label="A blue ink doodle of An wearing an áo dài and a conical hat, holding epiphyllum flowers." />
+                {/* All hit areas, labels, and arrow tips share the artwork's coordinates. */}
+                <g className="portrait-detail" tabIndex={0} role="img" aria-label="Nón lá — conical hat">
+                  <path className="portrait-hotspot" d="M420 20 850 150Q860 180 785 220L320 420Q265 445 270 400Z" />
+                  <g className="portrait-callout" aria-hidden="true">
+                    <text x="105" y="115">nón lá</text>
+                    <path className="portrait-callout-arrow" d="M235 135Q298 145 334 232m-20-9 20 9 2-22" />
+                  </g>
+                </g>
+                <g className="portrait-detail" tabIndex={0} role="img" aria-label="Áo dài — dress">
+                  <path className="portrait-hotspot" d="M535 430Q590 465 655 475Q785 490 755 665L725 710 680 805 785 970 770 1248 260 1248 370 920Q245 920 260 810L285 700Q395 780 480 728L515 575Z" />
+                  <g className="portrait-callout" aria-hidden="true">
+                    <text x="70" y="975">áo dài</text>
+                    <path className="portrait-callout-arrow" d="M205 995Q260 1030 336 1012m-19-11 19 11-12 18" />
+                  </g>
+                </g>
+                <g className="portrait-detail" tabIndex={0} role="img" aria-label="Hoa quỳnh — epiphyllum flowers">
+                  <path className="portrait-hotspot" d="M855 470 910 545 958 620 1020 550 1110 620 1198 720 1150 790 1215 865 1190 1005 1060 1065 955 1025 900 975 795 935 670 845 670 720 750 635 810 670Z" />
+                  <g className="portrait-callout" aria-hidden="true">
+                    <text className="portrait-callout-flower-label" x="1030" y="1190" textAnchor="middle">hoa quỳnh</text>
+                    <path className="portrait-callout-arrow" d="M1030 1135Q1135 1110 1107 1054m-6 22 6-22 21 10" />
+                  </g>
+                </g>
+              </svg>
             </figure>
             <div className="hero-copy"><p className="eyebrow">A personal notebook on the internet</p><h1 id="intro-title">A little corner<br />of my world.</h1><p className="intro-text">Hello, I’m An. This is a home for the things I make, the ideas I’m exploring, and the small details worth keeping.</p><a className="text-link" href="#work">Take a look around <Arrow /></a></div>
           </div>
