@@ -1,5 +1,7 @@
 import "./portrait-annotations.css";
-import { Arrow, Sprig, JoyIcon, Envelope } from "@/components/illustrations";
+import { Arrow, JoyIcon, Envelope } from "@/components/illustrations";
+import { FlowerCutoutDefinitions, FlowerInk, QuynhFlower } from "@/components/quynh-flower";
+import { FallingFlower } from "@/components/falling-flower";
 import { ProjectGallery } from "@/components/project-gallery";
 import { portfolio } from "@/content/portfolio";
 
@@ -23,6 +25,7 @@ export default function Home() {
                 aria-label="Portrait details: nón lá, áo dài, and hoa quỳnh"
               >
                 <defs>
+                  <FlowerCutoutDefinitions />
                   <filter id="portrait-thin-strokes" filterUnits="userSpaceOnUse" x="0" y="0" width="1232" height="1277">
                     <feMorphology in="SourceAlpha" operator="erode" radius="1.35" result="thin" />
                     <feComponentTransfer in="SourceAlpha" result="fine">
@@ -34,7 +37,10 @@ export default function Home() {
                     <image href="/images/portrait-proportions-v14.png" width="1232" height="1277" filter="url(#portrait-thin-strokes)" />
                   </mask>
                 </defs>
-                <rect width="1232" height="1277" fill="var(--ink)" mask="url(#portrait-ink)" role="img" aria-label="A blue ink doodle of An wearing an áo dài and a conical hat, holding epiphyllum flowers." />
+                <g mask="url(#portrait-without-blossom)" role="img" aria-label="A blue ink doodle of An wearing an áo dài and a conical hat, holding epiphyllum flowers.">
+                  <rect width="1232" height="1277" fill="var(--ink)" mask="url(#portrait-ink)" />
+                </g>
+                <g className="portrait-attached-flower" aria-hidden="true"><FlowerInk /></g>
                 {/* All hit areas, labels, and arrow tips share the artwork's coordinates. */}
                 <g className="portrait-detail" tabIndex={0} role="img" aria-label="Nón lá — conical hat">
                   <path className="portrait-hotspot" d="M420 20 850 150Q860 180 785 220L320 420Q265 445 270 400Z" />
@@ -64,13 +70,14 @@ export default function Home() {
           <div className="hero-footer"><p className="handwritten">A few things made, a few things noticed.</p><a href="#about" className="eyebrow wander-link">Keep wandering <Arrow down /></a></div>
         </section>
         <section id="about" className="about section" aria-labelledby="about-title">
-          <div className="section-aside"><p className="eyebrow">01 — A little about me</p><Sprig className="about-sprig" /></div>
+          <div className="section-aside"><p className="eyebrow">01 — A little about me</p><div className="flower-landing" aria-hidden="true"><QuynhFlower /></div></div>
           <div className="about-content"><h2 id="about-title">More than a name<br />at the top of a page.</h2><div className="about-columns"><p>{portfolio.about}</p><p>Here, I’m gathering work, unfinished thoughts, and little discoveries along the way. Think of it as an open notebook — a place to share what feels meaningful.</p></div><p className="handwritten about-signoff">Thanks for stopping by, An</p></div>
         </section>
         <section id="work" className="work section" aria-labelledby="work-title"><p className="eyebrow">02 — Things I’ve been making</p><div className="section-heading"><h2 id="work-title">Selected work.</h2><p>A few pages from my notebook.<br />Each one with a story of its own.</p></div><ProjectGallery /><p className="handwritten work-note">Always a work in progress. That’s the lovely part.</p></section>
         <section id="joys" className="joys section" aria-labelledby="joys-title"><p className="eyebrow">03 — Outside the work</p><h2 id="joys-title">Life’s little joys.</h2><div className="joy-grid">{portfolio.joys.map(joy => <article className="joy" key={joy.title}><JoyIcon kind={joy.icon} /><h3>{joy.title}</h3><p>{joy.description}</p></article>)}</div></section>
         <section id="contact" className="contact section" aria-labelledby="contact-title"><div className="contact-copy"><p className="eyebrow">04 — A note to say hello</p><h2 id="contact-title">Good things start<br />with a hello.</h2><p>Have an idea to share, a question to ask, or a story to tell? I’d love to hear from you.</p><a className="email-link" href={`mailto:${portfolio.email}`}>{portfolio.email}<Arrow /></a></div><figure className="envelope-figure"><Envelope /><figcaption className="handwritten">My inbox is a good place to begin.</figcaption></figure></section>
       </main>
+      <FallingFlower />
       <footer className="site-footer"><div><a className="signature" href="#top">{portfolio.name}</a><p>A personal notebook. Made with care.</p></div><a className="text-link" href="#top">Back to top <Arrow /></a></footer>
     </div>
   );
