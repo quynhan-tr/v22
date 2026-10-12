@@ -2,7 +2,7 @@
 
 Created with the built-in image generation tool from the supplied portrait photograph.
 Current asset: `public/images/portrait-proportions-v14.png`.
-Other saved assets: `public/images/portrait-line-sketch.png`, `public/images/portrait-handdrawn-v2.png`, `public/images/portrait-epiphyllum-v3.png`, `public/images/portrait-doodle-v4.png`, `public/images/portrait-natural-contours-v6.png`, `public/images/portrait-soft-profile-v7.png`.
+Only the final portrait is retained in `public`; references to earlier revisions below are provenance, not live assets.
 
 ## Display stroke weight
 
@@ -10,7 +10,7 @@ The page renders the unchanged v14 raster through an SVG alpha mask. A 1.35-sour
 
 ## Smaller hat and lowered features
 
-The hat is scaled to 92 percent around its contact near (670,280). The existing nose and mouth contours move down by approximately six source pixels with smooth transitions to the bridge and chin. Hair joins are adjusted locally to meet the resized brim. The existing contour shapes and ink are retained. Earlier versions remain alongside this asset.
+The hat is scaled to 92 percent around its contact near (670,280). The existing nose and mouth contours move down by approximately six source pixels with smooth transitions to the bridge and chin. Hair joins are adjusted locally to meet the resized brim. The existing contour shapes and ink are retained.
 
 A built-in image generation edit was attempted with the prompt below. Since its result altered the face more than requested, the final asset applies local geometric adjustments to the approved v13 artwork instead.
 
@@ -38,7 +38,7 @@ Precisely edit this enlarged crop of an existing blue profile doodle. Two small 
 
 The user explicitly selected the face in exec-4cea8659-3f67-4917-a2a7-6382ed905101.png. The final asset copies its original face alpha into v10, translated six pixels left to align it beneath the current hat. The nose, lips and chin are copied without rescaling or redrawing. Only the boundary near the existing jaw and hat is blended. All pixels outside x600–714, y277–402 are unchanged; ink remains #285694 and is displayed using the text-color CSS mask.
 
-A built-in image generation compositing pass was also attempted; the final asset uses the supplied reference pixels directly to retain the selected contour exactly. Earlier assets remain available.
+A built-in image generation compositing pass was also attempted; the final asset uses the supplied reference pixels directly to retain the selected contour exactly.
 
 ## Natural nose revision
 
