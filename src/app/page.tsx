@@ -3,7 +3,7 @@ import { Arrow, JoyIcon, Envelope } from "@/components/illustrations";
 import { FlowerCutoutDefinitions, FlowerInk, QuynhFlower } from "@/components/quynh-flower";
 import { FallingFlower } from "@/components/falling-flower";
 import { ProjectGallery } from "@/components/project-gallery";
-import { portfolio } from "@/content/portfolio";
+import { portfolio, experienceIntro, experiences } from "@/content/portfolio";
 
 export default function Home() {
   return (
@@ -65,12 +65,30 @@ export default function Home() {
                 </g>
               </svg>
             </figure>
-            <div className="hero-copy"><p className="eyebrow">A personal notebook on the internet</p><h1 id="intro-title">hi, I’m An</h1><p className="intro-text">I’m a third-year computer science student at <a className="school-lockup" href="https://cs.uwaterloo.ca/" target="_blank" rel="noreferrer">the University of Waterloo<span className="school-mark" aria-hidden="true" /></a>. This site is a collection of my projects, experiences, and other things I’ve done.</p><a href="#about" className="eyebrow wander-link">Keep wandering <Arrow down /></a></div>
+            <div className="hero-copy"><p className="eyebrow">xin chào, mình là An</p><h1 id="intro-title">hi, I’m An</h1><p className="intro-text"><span className="intro-lead">computer science @ <a className="school-lockup" href="https://cs.uwaterloo.ca/" target="_blank" rel="noreferrer">university of waterloo<span className="school-mark" aria-hidden="true" /></a></span>This site is a collection of my projects, experiences, and other things I’ve done.</p><a href="#about" className="eyebrow wander-link">Keep wandering <Arrow down /></a></div>
           </div>
         </section>
         <section id="about" className="about section" aria-labelledby="about-title">
-          <div className="section-aside"><p className="eyebrow">01 — A little about me</p><div className="flower-landing" aria-hidden="true"><QuynhFlower /></div></div>
-          <div className="about-content"><h2 id="about-title">More than a name<br />at the top of a page.</h2><div className="about-columns"><p>{portfolio.about}</p><p>Here, I’m gathering work, unfinished thoughts, and little discoveries along the way. Think of it as an open notebook — a place to share what feels meaningful.</p></div><p className="handwritten about-signoff">Thanks for stopping by, An</p></div>
+          <div className="section-aside"><p className="eyebrow">01 — Experience</p><div className="flower-landing" aria-hidden="true"><QuynhFlower /></div></div>
+          <div className="experience-intro">
+            <h2 id="about-title">Learning by<br />building.</h2>
+            <p>{experienceIntro}</p>
+            <p className="handwritten experience-signoff">A few stops along the way.</p>
+          </div>
+          <div className="experience-history">
+            <ul className="experience-list">
+              {experiences.map(experience => (
+                <li className="experience-entry" key={experience.company}>
+                  <div className={`company-mark${experience.company === "Verkada" ? "" : " company-mark-wide"}`} aria-hidden="true"><span className={`company-logo${experience.company === "Propel Holdings" ? " company-logo-propel" : ""}`} style={{ maskImage: `url("${experience.logo}")`, WebkitMaskImage: `url("${experience.logo}")`, clipPath: experience.company === "Propel Holdings" ? "inset(36% 0 36% 3%)" : undefined }} /></div>
+                  <div className="experience-details">
+                    <div className="company-heading"><h3>{experience.company}</h3></div>
+                    <p className="experience-position">{experience.position}</p>
+                    {experience.technologies.length > 0 && <ul className="technology-list" aria-label={`Technologies used at ${experience.company}`}>{experience.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
         <section id="work" className="work section" aria-labelledby="work-title"><p className="eyebrow">02 — Things I’ve been making</p><div className="section-heading"><h2 id="work-title">Selected work.</h2><p>A few pages from my notebook.<br />Each one with a story of its own.</p></div><ProjectGallery /><p className="handwritten work-note">Always a work in progress. That’s the lovely part.</p></section>
         <section id="joys" className="joys section" aria-labelledby="joys-title"><p className="eyebrow">03 — Outside the work</p><h2 id="joys-title">Life’s little joys.</h2><div className="joy-grid">{portfolio.joys.map(joy => <article className="joy" key={joy.title}><JoyIcon kind={joy.icon} /><h3>{joy.title}</h3><p>{joy.description}</p></article>)}</div></section>

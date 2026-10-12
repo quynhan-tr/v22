@@ -10,6 +10,22 @@ export const portfolio = {
     { icon: "plant", title: "Growing things", description: "Something you’re learning, tending to, or simply curious about." },
   ],
 } as const;
+
+// Draft introduction: personalize the focus and interests when ready.
+export const experienceIntro = "I’m a computer science student at Waterloo, exploring where I’d like to take my work in software engineering. Internships are one way I’m learning along the way.";
+
+// Add verified technologies here; empty lists stay hidden on the page.
+export const experiences: {
+  company: string;
+  position: string;
+  logo: string;
+  technologies: string[];
+}[] = [
+  { company: "Verkada", position: "Incoming Software Engineer Intern", logo: "/images/companies/verkada.png", technologies: [] },
+  { company: "Carta", position: "Software Engineer Intern", logo: "/images/companies/carta.svg", technologies: [] },
+  { company: "Propel Holdings", position: "Software Engineer Intern", logo: "/images/companies/propel.png", technologies: [] },
+];
+
 export const projects = [
   { id: "small-things", art: "botanical", category: "Personal project / A collection", title: "A collection of small things", description: "An appreciation for the overlooked, the everyday, and the quietly beautiful.", note: "A space for a collection of things you’ve made, found, or wanted to keep. Add your story, your process, and the little details that made this project yours." },
   { id: "taking-shape", art: "orbit", category: "Exploration / In progress", title: "An idea, taking shape", description: "Following a thread of curiosity, and seeing where it might lead.", note: "Every idea starts somewhere. Use this page to share the question that began it all, the experiments along the way, and what you’re discovering." },

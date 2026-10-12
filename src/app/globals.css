@@ -35,7 +35,8 @@ h2 { font-size: 51px; line-height: 1.12; letter-spacing: -.015em; }
 .hero-copy { padding: 12px 0 25px 36px; }
 .eyebrow { font-size: 10px; line-height: 1.6; text-transform: uppercase; letter-spacing: .075em; font-weight: 400; }
 .hero-copy .eyebrow { margin-bottom: 29px; }
-.intro-text { max-width: 430px; margin: 28px 0 34px; color: var(--muted); font-size: 15px; line-height: 1.9; }
+.intro-text { width: min-content; max-width: 100%; margin: 28px 0 34px; color: var(--muted); font-size: 15px; line-height: 1.9; }
+.intro-lead { display: block; white-space: nowrap; }
 /* Keep the school name and its hand-drawn crest together when the intro wraps. */
 .school-lockup { display: inline-flex; align-items: center; gap: .38em; white-space: nowrap; color: inherit; transition: color .2s ease; }
 .school-mark {
@@ -122,11 +123,50 @@ body:has(dialog[open]) { overflow: hidden; }
   .notebook { padding: 0 38px; } .hero-main { gap: 24px; min-height: 580px; } .portrait { height: 490px; } h1 { font-size: 50px; } .hero-copy { padding-left: 16px; } .hero-copy .eyebrow { font-size: 8px; } .intro-text { font-size: 13px; } .section { padding: 60px 0; } .project-grid { gap: 22px; } .project-title { font-size: 24px; } .journal-left { padding: 12px 9px; } .journal-left > span { font-size: 20px; } .joy-grid { gap: 23px; } .joy h3 { font-size: 25px; } .contact { gap: 30px; } .contact h2 { font-size: 59px; } .envelope-figure { width: 265px; } .email-link { font-size: 30px; }
 }
 @media (max-width: 700px) {
-  .notebook { padding: 0 24px; } .site-header { height: 82px; } .signature { font-size: 23px; } .site-header nav { gap: 19px; font-size: 11px; } .site-header nav a:nth-child(3) { display: none; } .nav-contact { gap: 8px; } .nav-contact .arrow { width: 13px; } .hero-main { grid-template-columns: 1fr; gap: 0; padding: 25px 0 0; } .portrait { height: 410px; width: 330px; max-width: 100%; margin: 0 auto; } .hero-copy { padding: 35px 0 32px; } .hero-copy .eyebrow { font-size: 9px; margin-bottom: 23px; } h1 { font-size: clamp(40px, 8.6vw, 56px); } .intro-text { max-width: 420px; font-size: 14px; margin: 23px 0; } .hero-footer { padding: 12px 0 27px; gap: 16px; } .hero-footer .handwritten { font-size: 16px; max-width: 190px; } .wander-link { font-size: 8px; gap: 9px; } .section { padding: 46px 0; } .about { grid-template-columns: 1fr; gap: 26px; } .section-aside { position: relative; } h2 { font-size: 42px; } .about-columns { grid-template-columns: 1fr; gap: 15px; } .about-columns p { font-size: 13px; } .about-signoff { font-size: 23px; } .section-heading { margin: 24px 0; align-items: flex-start; flex-direction: column; gap: 15px; } .section-heading > p { font-size: 12px; } .section-heading > p br { display: none; } .project-grid { grid-template-columns: 1fr; gap: 34px; } .project-art { aspect-ratio: 1.45; } .botanical-paper { padding: 19px 22px; width: 62%; } .paper-label { font-size: 8px; } .paper-caption { font-size: 18px; } .journal-left { padding: 21px 15px; } .journal-left > span { font-size: 29px; } .art-label { font-size: 8px; } .project-category { font-size: 9px; } .project-title { font-size: 29px; } .project > p { font-size: 13px; } .work-note { font-size: 20px; } .joy-grid { grid-template-columns: 1fr 1fr; row-gap: 34px; column-gap: 22px; margin-top: 32px; } .joy h3 { font-size: 25px; } .joy-icon { width: 30px; height: 30px; margin-bottom: 15px; } .contact { grid-template-columns: 1fr; gap: 35px; } .contact h2 { font-size: 54px; } .email-link { font-size: 30px; } .envelope-figure { width: 240px; margin-bottom: 10px; } .envelope { height: 165px; } .envelope-figure figcaption { font-size: 20px; } .site-footer .signature { font-size: 22px; } .site-footer .text-link { gap: 12px; } .dialog-content { padding: 29px 24px; } .dialog-content h2 { font-size: 35px; }
+  .notebook { padding: 0 24px; } .site-header { height: 82px; } .signature { font-size: 23px; } .site-header nav { gap: 19px; font-size: 11px; } .site-header nav a:nth-child(3) { display: none; } .nav-contact { gap: 8px; } .nav-contact .arrow { width: 13px; } .hero-main { grid-template-columns: 1fr; gap: 0; padding: 25px 0 0; } .portrait { height: 410px; width: 330px; max-width: 100%; margin: 0 auto; } .hero-copy { padding: 35px 0 32px; } .hero-copy .eyebrow { font-size: 9px; margin-bottom: 23px; } h1 { font-size: clamp(40px, 8.6vw, 56px); } .intro-text { font-size: 14px; margin: 23px 0; } .hero-footer { padding: 12px 0 27px; gap: 16px; } .hero-footer .handwritten { font-size: 16px; max-width: 190px; } .wander-link { font-size: 8px; gap: 9px; } .section { padding: 46px 0; } .about { grid-template-columns: 1fr; gap: 26px; } .section-aside { position: relative; } h2 { font-size: 42px; } .about-columns { grid-template-columns: 1fr; gap: 15px; } .about-columns p { font-size: 13px; } .about-signoff { font-size: 23px; } .section-heading { margin: 24px 0; align-items: flex-start; flex-direction: column; gap: 15px; } .section-heading > p { font-size: 12px; } .section-heading > p br { display: none; } .project-grid { grid-template-columns: 1fr; gap: 34px; } .project-art { aspect-ratio: 1.45; } .botanical-paper { padding: 19px 22px; width: 62%; } .paper-label { font-size: 8px; } .paper-caption { font-size: 18px; } .journal-left { padding: 21px 15px; } .journal-left > span { font-size: 29px; } .art-label { font-size: 8px; } .project-category { font-size: 9px; } .project-title { font-size: 29px; } .project > p { font-size: 13px; } .work-note { font-size: 20px; } .joy-grid { grid-template-columns: 1fr 1fr; row-gap: 34px; column-gap: 22px; margin-top: 32px; } .joy h3 { font-size: 25px; } .joy-icon { width: 30px; height: 30px; margin-bottom: 15px; } .contact { grid-template-columns: 1fr; gap: 35px; } .contact h2 { font-size: 54px; } .email-link { font-size: 30px; } .envelope-figure { width: 240px; margin-bottom: 10px; } .envelope { height: 165px; } .envelope-figure figcaption { font-size: 20px; } .site-footer .signature { font-size: 22px; } .site-footer .text-link { gap: 12px; } .dialog-content { padding: 29px 24px; } .dialog-content h2 { font-size: 35px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
 /* Keep the two-column introduction comfortable on smaller tablets. */
 @media (min-width: 701px) and (max-width: 1000px) {
   h1 { font-size: clamp(36px, 4.6vw, 50px); }
   .hero-copy .eyebrow { max-width: 240px; }
+}
+
+/* Proportional desktop columns leave room for the flower and shift the copy right. */
+.about { grid-template-columns: minmax(130px, .6fr) minmax(0, 1fr) minmax(0, 1.2fr); gap: 54px; align-items: start; }
+.experience-history { padding-top: 16px; }
+.experience-intro h2 { font-size: clamp(34px, 3.5vw, 46px); margin-bottom: 22px; }
+.experience-intro > p { color: var(--muted); font-size: 13px; line-height: 1.9; }
+.experience-intro .experience-signoff { color: var(--ink); font-size: 20px; margin-top: 22px; }
+.experience-list, .technology-list { list-style: none; margin: 0; padding: 0; }
+.experience-entry { display: grid; grid-template-columns: 66px minmax(0, 1fr); gap: 16px; padding: 21px 0; }
+.experience-entry:first-child { padding-top: 0; }
+.experience-entry:last-child { padding-bottom: 0; }
+.company-mark { width: 66px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.company-logo { display: block; width: 30px; height: 30px; background: var(--ink); mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
+.company-mark-wide .company-logo { width: 58px; height: 58px; }
+/* Keep only the wordmark band, excluding the source's stray vertical line. */
+.company-logo-propel { clip-path: inset(36% 0 36% 3%); }
+.company-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 12px; }
+.company-heading h3 { font-family: var(--font-serif-display), Georgia, serif; font-size: 25px; font-weight: 400; line-height: 1.2; margin: 0; }
+.experience-position { font-size: 11px; line-height: 1.6; color: var(--muted); margin-top: 6px; }
+.technology-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.technology-list li { font-size: 9px; line-height: 1.5; padding: 3px 8px; border: 1px solid var(--rule); border-radius: 4px; }
+@media (min-width: 1001px) {
+  .experience-intro { position: relative; left: -8px; }
+  .experience-history { position: relative; left: 40px; }
+}
+@media (min-width: 701px) and (max-width: 1000px) {
+  .about { grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1.2fr); gap: 30px; }
+  .experience-entry { gap: 10px; grid-template-columns: 58px minmax(0, 1fr); }
+  .company-mark { width: 58px; height: 34px; }
+  .company-logo { width: 27px; height: 27px; }
+  .company-mark-wide .company-logo { width: 50px; height: 50px; }
+  .company-heading h3 { font-size: 22px; }
+}
+@media (max-width: 700px) {
+  .about { grid-template-columns: 1fr; gap: 30px; }
+  .experience-intro { max-width: 420px; }
+  .experience-intro h2 { font-size: 40px; }
+  .experience-history { margin-top: 4px; padding-top: 0; }
 }
