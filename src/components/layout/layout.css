@@ -1,0 +1,92 @@
+.site-header {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+
+.signature {
+  font-size: 26px;
+  font-style: italic;
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  font-size: 12px;
+}
+
+.site-header nav a {
+  transition: opacity 0.2s;
+}
+
+.site-header nav a:hover {
+  opacity: 0.6;
+}
+
+.nav-contact {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-bottom: 1px solid var(--ink);
+  padding: 7px 0;
+}
+
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--rule);
+  padding: 25px 0 23px;
+}
+
+.site-footer .signature {
+  font-size: 24px;
+}
+
+.site-footer p {
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.site-footer .text-link {
+  font-size: 11px;
+}
+
+@media (max-width: 700px) {
+  .site-header {
+    height: 82px;
+  }
+
+  .signature {
+    font-size: 23px;
+  }
+
+  .site-header nav {
+    gap: 19px;
+    font-size: 11px;
+  }
+
+  .site-header nav a:nth-child(3) {
+    display: none;
+  }
+
+  .nav-contact {
+    gap: 8px;
+  }
+
+  .nav-contact .arrow {
+    width: 13px;
+  }
+
+  .site-footer .signature {
+    font-size: 22px;
+  }
+
+  .site-footer .text-link {
+    gap: 12px;
+  }
+}

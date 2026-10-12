@@ -1,0 +1,477 @@
+.hero-main {
+  min-height: 650px;
+  padding: 54px 0 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero-copy {
+  padding: 12px 0 25px 36px;
+}
+
+.hero-copy .eyebrow {
+  margin-bottom: 29px;
+}
+
+.intro-text {
+  width: min-content;
+  max-width: 100%;
+  margin: 28px 0 34px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.intro-lead {
+  display: block;
+  white-space: nowrap;
+}
+
+.school-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38em;
+  white-space: nowrap;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.school-mark {
+  width: 1.57em;
+  height: 1.85em;
+  flex: 0 0 auto;
+  margin-block: -0.45em;
+  background: var(--ink);
+  opacity: 0.94;
+  transform: rotate(-2deg);
+  transition: background 0.2s ease;
+  -webkit-mask: url("/images/waterloo-crest-sketch.png") center / contain
+    no-repeat;
+  mask: url("/images/waterloo-crest-sketch.png") center / contain no-repeat;
+}
+
+.school-lockup:is(:hover, :focus-visible) {
+  color: #7eafdf;
+}
+
+.school-lockup:is(:hover, :focus-visible) .school-mark {
+  background: #7eafdf;
+}
+
+.wander-link {
+  display: inline-flex;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--ink);
+  padding: 7px 0;
+}
+
+.about {
+  display: grid;
+  grid-template-columns:
+    minmax(130px, 0.6fr)
+    minmax(0, 1fr)
+    minmax(0, 1.2fr);
+  gap: 54px;
+  align-items: start;
+  padding: 78px 0 82px;
+}
+
+.experience-history {
+  padding-top: 16px;
+}
+
+.experience-intro h2 {
+  font-size: clamp(34px, 3.5vw, 46px);
+  margin-bottom: 22px;
+}
+
+.experience-intro > p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.experience-intro .experience-signoff {
+  color: var(--ink);
+  font-size: 20px;
+  margin-top: 22px;
+}
+
+.experience-list,
+.technology-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.experience-entry {
+  display: grid;
+  grid-template-columns: 66px minmax(0, 1fr);
+  gap: 16px;
+  padding: 21px 0;
+}
+
+.experience-entry:first-child {
+  padding-top: 0;
+}
+
+.experience-entry:last-child {
+  padding-bottom: 0;
+}
+
+.company-mark {
+  width: 66px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-logo {
+  display: block;
+  width: 58px;
+  height: 58px;
+  background: var(--ink);
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+}
+
+.company-heading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+.company-heading h3 {
+  font-family: var(--font-serif-display), Georgia, serif;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.experience-position {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.technology-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.technology-list li {
+  font-size: 9px;
+  line-height: 1.5;
+  padding: 3px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0 34px;
+  gap: 20px;
+}
+
+.section-heading > p {
+  color: var(--muted);
+  font-size: 13px;
+  max-width: 275px;
+  line-height: 1.65;
+}
+
+.work-note {
+  margin-top: 32px;
+  color: var(--muted);
+}
+
+.joys > h2 {
+  margin-top: 28px;
+}
+
+.joy-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 35px;
+  margin-top: 44px;
+}
+
+.joy-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 20px;
+}
+
+.joy h3 {
+  font-size: 28px;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.joy p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.contact {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 70px;
+  padding: 80px 0 77px;
+  align-items: center;
+}
+
+.contact h2 {
+  font-size: 70px;
+  line-height: 1.06;
+  margin: 25px 0 24px;
+}
+
+.contact-copy > p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 13px;
+  max-width: 430px;
+}
+
+.email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 25px;
+  font-family: var(--font-serif-display), Georgia, serif;
+  font-size: 35px;
+  border-bottom: 1px solid var(--ink-soft);
+  padding: 17px 0 7px;
+}
+
+.envelope-figure {
+  justify-self: center;
+  width: 305px;
+  transform: rotate(-2deg);
+  text-align: center;
+}
+
+.envelope {
+  width: 100%;
+  height: 217px;
+  padding: 10px;
+}
+
+.envelope-figure figcaption {
+  margin-top: 10px;
+  font-size: 22px;
+}
+
+@media (min-width: 1450px) {
+  .hero-main {
+    min-height: 700px;
+  }
+}
+
+@media (min-width: 1001px) {
+  .experience-intro {
+    position: relative;
+    left: -8px;
+  }
+
+  .experience-history {
+    position: relative;
+    left: 40px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .hero-main {
+    gap: 24px;
+    min-height: 580px;
+  }
+
+  .hero-copy {
+    padding-left: 16px;
+  }
+
+  .hero-copy .eyebrow {
+    font-size: 8px;
+  }
+
+  .intro-text {
+    font-size: 13px;
+  }
+
+  .joy-grid {
+    gap: 23px;
+  }
+
+  .joy h3 {
+    font-size: 25px;
+  }
+
+  .contact {
+    gap: 30px;
+  }
+
+  .contact h2 {
+    font-size: 59px;
+  }
+
+  .envelope-figure {
+    width: 265px;
+  }
+
+  .email-link {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1000px) {
+  .hero-copy .eyebrow {
+    max-width: 240px;
+  }
+
+  .about {
+    grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 30px;
+  }
+
+  .experience-entry {
+    gap: 10px;
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .company-mark {
+    width: 58px;
+    height: 34px;
+  }
+
+  .company-logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .company-heading h3 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-main {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 25px 0 0;
+  }
+
+  .hero-copy {
+    padding: 35px 0 32px;
+  }
+
+  .hero-copy .eyebrow {
+    font-size: 9px;
+    margin-bottom: 23px;
+  }
+
+  .intro-text {
+    font-size: 14px;
+    margin: 23px 0;
+  }
+
+  .wander-link {
+    font-size: 8px;
+    gap: 9px;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .section-aside {
+    position: relative;
+  }
+
+  .experience-intro {
+    max-width: 420px;
+  }
+
+  .experience-intro h2 {
+    font-size: 40px;
+  }
+
+  .experience-history {
+    margin-top: 4px;
+    padding-top: 0;
+  }
+
+  .section-heading {
+    margin: 24px 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .section-heading > p {
+    font-size: 12px;
+  }
+
+  .section-heading > p br {
+    display: none;
+  }
+
+  .work-note {
+    font-size: 20px;
+  }
+
+  .joy-grid {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 34px;
+    column-gap: 22px;
+    margin-top: 32px;
+  }
+
+  .joy h3 {
+    font-size: 25px;
+  }
+
+  .joy-icon {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 15px;
+  }
+
+  .contact {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .contact h2 {
+    font-size: 54px;
+  }
+
+  .email-link {
+    font-size: 30px;
+  }
+
+  .envelope-figure {
+    width: 240px;
+    margin-bottom: 10px;
+  }
+
+  .envelope {
+    height: 165px;
+  }
+
+  .envelope-figure figcaption {
+    font-size: 20px;
+  }
+}

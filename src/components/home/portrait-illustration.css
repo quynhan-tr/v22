@@ -1,0 +1,87 @@
+.portrait {
+  position: relative;
+  width: 100%;
+  height: 580px;
+}
+
+.portrait-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.portrait-detail {
+  outline: none;
+}
+
+.portrait-hotspot {
+  fill: transparent;
+  stroke: none;
+  pointer-events: all;
+  cursor: default;
+}
+
+.portrait-detail:focus-visible .portrait-hotspot {
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-dasharray: 4 5;
+  vector-effect: non-scaling-stroke;
+}
+
+.portrait-callout {
+  fill: var(--ink);
+  font-family: var(--font-serif-display), Georgia, serif;
+  font-size: 52px;
+  font-style: italic;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.portrait-callout-flower-label {
+  font-size: 0.9em;
+}
+
+.portrait-callout-arrow {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.portrait-detail:is(:hover, :focus-visible) .portrait-callout {
+  opacity: 1;
+}
+
+@media (min-width: 1450px) {
+  .portrait {
+    height: 610px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .portrait {
+    height: 490px;
+  }
+
+  .portrait-callout {
+    font-size: 64px;
+  }
+}
+
+@media (max-width: 700px) {
+  .portrait {
+    height: 410px;
+    width: 330px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 700px), (hover: none) {
+  .portrait-detail {
+    display: none;
+  }
+}
