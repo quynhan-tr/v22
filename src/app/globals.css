@@ -14,7 +14,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-o
 p, h1, h2, h3, figure { margin: 0; }
 p { line-height: 1.85; }
 h1, h2, h3, .signature, .handwritten, .project-title { font-family: var(--font-serif-display), Georgia, serif; font-weight: 400; }
-h1 { font-size: clamp(58px, 6.2vw, 82px); line-height: 1.01; letter-spacing: -.025em; }
+h1 { font-size: clamp(46px, 4.8vw, 66px); line-height: 1.01; letter-spacing: -.025em; font-style: italic; }
 h2 { font-size: 51px; line-height: 1.12; letter-spacing: -.015em; }
 .notebook { max-width: 1260px; padding: 0 62px; margin: 0 auto; }
 .site-header { height: 100px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--rule); }
@@ -32,16 +32,32 @@ h2 { font-size: 51px; line-height: 1.12; letter-spacing: -.015em; }
   width: 100%;
   height: 100%;
 }
-.hero-copy { padding: 12px 0 25px 8px; }
+.hero-copy { padding: 12px 0 25px 36px; }
 .eyebrow { font-size: 10px; line-height: 1.6; text-transform: uppercase; letter-spacing: .075em; font-weight: 400; }
 .hero-copy .eyebrow { margin-bottom: 29px; }
-.intro-text { max-width: 395px; margin: 28px 0 34px; color: var(--muted); font-size: 15px; line-height: 1.9; }
+.intro-text { max-width: 430px; margin: 28px 0 34px; color: var(--muted); font-size: 15px; line-height: 1.9; }
+/* Keep the school name and its hand-drawn crest together when the intro wraps. */
+.school-lockup { display: inline-flex; align-items: center; gap: .38em; white-space: nowrap; color: inherit; transition: color .2s ease; }
+.school-mark {
+  width: 1.57em;
+  height: 1.85em;
+  flex: 0 0 auto;
+  margin-block: -.45em;
+  background: var(--ink);
+  opacity: .94;
+  transform: rotate(-2deg);
+  transition: background .2s ease;
+  -webkit-mask: url("/images/waterloo-crest-sketch.png") center / contain no-repeat;
+  mask: url("/images/waterloo-crest-sketch.png") center / contain no-repeat;
+}
+.school-lockup:is(:hover, :focus-visible) { color: #7eafdf; }
+.school-lockup:is(:hover, :focus-visible) .school-mark { background: #7eafdf; }
 .text-link { display: inline-flex; gap: 27px; align-items: center; padding: 5px 0 8px; border: 0; border-bottom: 1px solid #28569480; background: none; font-size: 12px; }
 .text-link:hover .arrow, .email-link:hover .arrow { transform: translate(3px, -3px); }
 .handwritten { font-size: 22px; line-height: 1.5; font-style: italic; }
 .hero-footer { display: flex; justify-content: space-between; align-items: center; padding: 20px 0 32px; }
 .hero-footer .handwritten { color: var(--muted); font-size: 20px; }
-.wander-link { display: inline-flex; gap: 20px; align-items: center; }
+.wander-link { display: inline-flex; gap: 20px; align-items: center; border-bottom: 1px solid var(--ink); padding: 7px 0; }
 .section { border-top: 1px solid var(--rule); padding: 76px 0; scroll-margin-top: 15px; }
 .about { display: grid; grid-template-columns: 28% 72%; padding: 78px 0 82px; }
 .about-content h2 { margin-bottom: 22px; }
@@ -103,14 +119,14 @@ h2 { font-size: 51px; line-height: 1.12; letter-spacing: -.015em; }
 body:has(dialog[open]) { overflow: hidden; }
 @media (min-width: 1450px) { .notebook { max-width: 1320px; } .hero-main { min-height: 700px; } .portrait { height: 610px; } }
 @media (max-width: 1000px) {
-  .notebook { padding: 0 38px; } .hero-main { gap: 24px; min-height: 580px; } .portrait { height: 490px; } h1 { font-size: 63px; } .hero-copy .eyebrow { font-size: 8px; } .intro-text { font-size: 13px; } .section { padding: 60px 0; } .project-grid { gap: 22px; } .project-title { font-size: 24px; } .journal-left { padding: 12px 9px; } .journal-left > span { font-size: 20px; } .joy-grid { gap: 23px; } .joy h3 { font-size: 25px; } .contact { gap: 30px; } .contact h2 { font-size: 59px; } .envelope-figure { width: 265px; } .email-link { font-size: 30px; }
+  .notebook { padding: 0 38px; } .hero-main { gap: 24px; min-height: 580px; } .portrait { height: 490px; } h1 { font-size: 50px; } .hero-copy { padding-left: 16px; } .hero-copy .eyebrow { font-size: 8px; } .intro-text { font-size: 13px; } .section { padding: 60px 0; } .project-grid { gap: 22px; } .project-title { font-size: 24px; } .journal-left { padding: 12px 9px; } .journal-left > span { font-size: 20px; } .joy-grid { gap: 23px; } .joy h3 { font-size: 25px; } .contact { gap: 30px; } .contact h2 { font-size: 59px; } .envelope-figure { width: 265px; } .email-link { font-size: 30px; }
 }
 @media (max-width: 700px) {
-  .notebook { padding: 0 24px; } .site-header { height: 82px; } .signature { font-size: 23px; } .site-header nav { gap: 19px; font-size: 11px; } .site-header nav a:nth-child(3) { display: none; } .nav-contact { gap: 8px; } .nav-contact .arrow { width: 13px; } .hero-main { grid-template-columns: 1fr; gap: 0; padding: 25px 0 0; } .portrait { height: 410px; width: 330px; max-width: 100%; margin: 0 auto; } .hero-copy { padding: 35px 0 32px; } .hero-copy .eyebrow { font-size: 9px; margin-bottom: 23px; } h1 { font-size: clamp(52px, 10.5vw, 72px); } .intro-text { max-width: 380px; font-size: 14px; margin: 23px 0; } .hero-footer { padding: 12px 0 27px; gap: 16px; } .hero-footer .handwritten { font-size: 16px; max-width: 190px; } .wander-link { font-size: 8px; gap: 9px; } .section { padding: 46px 0; } .about { grid-template-columns: 1fr; gap: 26px; } .section-aside { position: relative; } h2 { font-size: 42px; } .about-columns { grid-template-columns: 1fr; gap: 15px; } .about-columns p { font-size: 13px; } .about-signoff { font-size: 23px; } .section-heading { margin: 24px 0; align-items: flex-start; flex-direction: column; gap: 15px; } .section-heading > p { font-size: 12px; } .section-heading > p br { display: none; } .project-grid { grid-template-columns: 1fr; gap: 34px; } .project-art { aspect-ratio: 1.45; } .botanical-paper { padding: 19px 22px; width: 62%; } .paper-label { font-size: 8px; } .paper-caption { font-size: 18px; } .journal-left { padding: 21px 15px; } .journal-left > span { font-size: 29px; } .art-label { font-size: 8px; } .project-category { font-size: 9px; } .project-title { font-size: 29px; } .project > p { font-size: 13px; } .work-note { font-size: 20px; } .joy-grid { grid-template-columns: 1fr 1fr; row-gap: 34px; column-gap: 22px; margin-top: 32px; } .joy h3 { font-size: 25px; } .joy-icon { width: 30px; height: 30px; margin-bottom: 15px; } .contact { grid-template-columns: 1fr; gap: 35px; } .contact h2 { font-size: 54px; } .email-link { font-size: 30px; } .envelope-figure { width: 240px; margin-bottom: 10px; } .envelope { height: 165px; } .envelope-figure figcaption { font-size: 20px; } .site-footer .signature { font-size: 22px; } .site-footer .text-link { gap: 12px; } .dialog-content { padding: 29px 24px; } .dialog-content h2 { font-size: 35px; }
+  .notebook { padding: 0 24px; } .site-header { height: 82px; } .signature { font-size: 23px; } .site-header nav { gap: 19px; font-size: 11px; } .site-header nav a:nth-child(3) { display: none; } .nav-contact { gap: 8px; } .nav-contact .arrow { width: 13px; } .hero-main { grid-template-columns: 1fr; gap: 0; padding: 25px 0 0; } .portrait { height: 410px; width: 330px; max-width: 100%; margin: 0 auto; } .hero-copy { padding: 35px 0 32px; } .hero-copy .eyebrow { font-size: 9px; margin-bottom: 23px; } h1 { font-size: clamp(40px, 8.6vw, 56px); } .intro-text { max-width: 420px; font-size: 14px; margin: 23px 0; } .hero-footer { padding: 12px 0 27px; gap: 16px; } .hero-footer .handwritten { font-size: 16px; max-width: 190px; } .wander-link { font-size: 8px; gap: 9px; } .section { padding: 46px 0; } .about { grid-template-columns: 1fr; gap: 26px; } .section-aside { position: relative; } h2 { font-size: 42px; } .about-columns { grid-template-columns: 1fr; gap: 15px; } .about-columns p { font-size: 13px; } .about-signoff { font-size: 23px; } .section-heading { margin: 24px 0; align-items: flex-start; flex-direction: column; gap: 15px; } .section-heading > p { font-size: 12px; } .section-heading > p br { display: none; } .project-grid { grid-template-columns: 1fr; gap: 34px; } .project-art { aspect-ratio: 1.45; } .botanical-paper { padding: 19px 22px; width: 62%; } .paper-label { font-size: 8px; } .paper-caption { font-size: 18px; } .journal-left { padding: 21px 15px; } .journal-left > span { font-size: 29px; } .art-label { font-size: 8px; } .project-category { font-size: 9px; } .project-title { font-size: 29px; } .project > p { font-size: 13px; } .work-note { font-size: 20px; } .joy-grid { grid-template-columns: 1fr 1fr; row-gap: 34px; column-gap: 22px; margin-top: 32px; } .joy h3 { font-size: 25px; } .joy-icon { width: 30px; height: 30px; margin-bottom: 15px; } .contact { grid-template-columns: 1fr; gap: 35px; } .contact h2 { font-size: 54px; } .email-link { font-size: 30px; } .envelope-figure { width: 240px; margin-bottom: 10px; } .envelope { height: 165px; } .envelope-figure figcaption { font-size: 20px; } .site-footer .signature { font-size: 22px; } .site-footer .text-link { gap: 12px; } .dialog-content { padding: 29px 24px; } .dialog-content h2 { font-size: 35px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
 /* Keep the two-column introduction comfortable on smaller tablets. */
 @media (min-width: 701px) and (max-width: 1000px) {
-  h1 { font-size: clamp(45px, 6.3vw, 63px); }
+  h1 { font-size: clamp(36px, 4.6vw, 50px); }
   .hero-copy .eyebrow { max-width: 240px; }
 }

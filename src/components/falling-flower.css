@@ -11,7 +11,7 @@
 }
 .flower-flight svg { display: block; width: 100%; height: auto; overflow: visible; }
 .flower-landing { width: 110px; aspect-ratio: 264 / 256; margin-top: 26px; }
-.flower-landing svg { display: block; width: 100%; height: 100%; transform: rotate(-16deg); overflow: visible; }
+.flower-landing svg { display: block; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
 .notebook[data-flower-flight="ready"] .portrait-attached-flower,
 .notebook[data-flower-flight="ready"] .flower-landing svg { visibility: hidden; }
 

@@ -65,9 +65,8 @@ export default function Home() {
                 </g>
               </svg>
             </figure>
-            <div className="hero-copy"><p className="eyebrow">A personal notebook on the internet</p><h1 id="intro-title">A little corner<br />of my world.</h1><p className="intro-text">Hello, I’m An. This is a home for the things I make, the ideas I’m exploring, and the small details worth keeping.</p><a className="text-link" href="#work">Take a look around <Arrow /></a></div>
+            <div className="hero-copy"><p className="eyebrow">A personal notebook on the internet</p><h1 id="intro-title">hi, I’m An</h1><p className="intro-text">I’m a third-year computer science student at <a className="school-lockup" href="https://cs.uwaterloo.ca/" target="_blank" rel="noreferrer">the University of Waterloo<span className="school-mark" aria-hidden="true" /></a>. This site is a collection of my projects, experiences, and other things I’ve done.</p><a href="#about" className="eyebrow wander-link">Keep wandering <Arrow down /></a></div>
           </div>
-          <div className="hero-footer"><p className="handwritten">A few things made, a few things noticed.</p><a href="#about" className="eyebrow wander-link">Keep wandering <Arrow down /></a></div>
         </section>
         <section id="about" className="about section" aria-labelledby="about-title">
           <div className="section-aside"><p className="eyebrow">01 — A little about me</p><div className="flower-landing" aria-hidden="true"><QuynhFlower /></div></div>
