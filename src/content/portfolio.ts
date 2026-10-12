@@ -1,4 +1,4 @@
-// Personal details and sample notebook projects. Replace projects with your own work.
+// Personal details and selected work.
 export const portfolio = {
   name: "An Tran",
   email: "an.tran@waterloo.ca",
@@ -21,13 +21,16 @@ export const experiences: {
   logo: string;
   technologies: string[];
 }[] = [
-  { company: "Verkada", position: "Incoming Software Engineer Intern", logo: "/images/companies/verkada.png", technologies: [] },
+  { company: "Verkada", position: "Incoming Software Engineer Intern", logo: "/images/companies/verkada.svg", technologies: [] },
   { company: "Carta", position: "Software Engineer Intern", logo: "/images/companies/carta.svg", technologies: [] },
-  { company: "Propel Holdings", position: "Software Engineer Intern", logo: "/images/companies/propel.png", technologies: [] },
+  { company: "Propel Holdings", position: "Software Engineer Intern", logo: "/images/companies/propel.svg", technologies: [] },
 ];
 
 export const projects = [
-  { id: "small-things", art: "botanical", category: "Personal project / A collection", title: "A collection of small things", description: "An appreciation for the overlooked, the everyday, and the quietly beautiful.", note: "A space for a collection of things you’ve made, found, or wanted to keep. Add your story, your process, and the little details that made this project yours." },
-  { id: "taking-shape", art: "orbit", category: "Exploration / In progress", title: "An idea, taking shape", description: "Following a thread of curiosity, and seeing where it might lead.", note: "Every idea starts somewhere. Use this page to share the question that began it all, the experiments along the way, and what you’re discovering." },
-  { id: "somewhere", art: "journal", category: "Visual journal / Observations", title: "Notes from somewhere", description: "Fragments of a place, a feeling, and the things worth remembering.", note: "A page for the places and experiences that stay with you. Add your photographs, sketches, or words here when you’re ready to tell the story." },
+  { id: "we-do-wonder", image: "/images/projects/wedowonder.png", category: "Community / Education", title: "We Do Wonder", description: "Inspiring change in Vietnam through education and community.", alt: "We Do Wonder website with photos from its community initiatives" },
+  { id: "motion-wave", image: "/images/projects/motionWave.png", category: "Music / Machine learning", title: "Motion Wave", description: "Control the rhythm with your hands. Real-time harmony powered by machine learning.", alt: "Motion Wave interface with a vinyl record and hand controls" },
+  { id: "notation", image: "/images/projects/notation.png", category: "Tools / Mathematics", title: "Notation", description: "Turning handwritten mathematics into formal markup.", alt: "Notation interface showing handwritten notes alongside formatted mathematics" },
+  { id: "tedx-uw", image: "/images/projects/tedx.png", category: "Community / Events", title: "TEDx UW", description: "Ideas and conversations at the University of Waterloo.", alt: "Speakers on stage at a TEDx UW event" },
+  { id: "estimathon", image: "/images/projects/estimathon.png", category: "UW DSC / Events", title: "Estimathon v0", description: "A place for teams to submit their estimates and follow the leaderboard.", alt: "UW DSC Estimathon submission form" },
+  { id: "speedfriending", image: "/images/projects/speedfriending.png", category: "UW DSC / Events", title: "Speedfriending v3", description: "Helping Waterloo students meet through a speed-friending social.", alt: "UW DSC Speedfriending social with survey and matching options" },
 ] as const;

@@ -79,7 +79,7 @@ export default function Home() {
             <ul className="experience-list">
               {experiences.map(experience => (
                 <li className="experience-entry" key={experience.company}>
-                  <div className={`company-mark${experience.company === "Verkada" ? "" : " company-mark-wide"}`} aria-hidden="true"><span className={`company-logo${experience.company === "Propel Holdings" ? " company-logo-propel" : ""}`} style={{ maskImage: `url("${experience.logo}")`, WebkitMaskImage: `url("${experience.logo}")`, clipPath: experience.company === "Propel Holdings" ? "inset(36% 0 36% 3%)" : undefined }} /></div>
+                  <div className="company-mark" aria-hidden="true"><span className="company-logo" style={{ maskImage: `url("${experience.logo}")`, WebkitMaskImage: `url("${experience.logo}")` }} /></div>
                   <div className="experience-details">
                     <div className="company-heading"><h3>{experience.company}</h3></div>
                     <p className="experience-position">{experience.position}</p>
