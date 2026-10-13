@@ -23,7 +23,7 @@ const serif = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "An Tran — A little corner of my world",
+  title: "An Tran ﹏𓊝﹏",
   description:
     "An Tran’s personal notebook. A home for the things I make, the ideas I’m exploring, and the small details worth keeping.",
   icons: { icon: "/icon.svg" },
