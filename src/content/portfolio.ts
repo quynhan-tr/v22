@@ -35,7 +35,7 @@ export const portfolio = {
   experiences: [
     {
       company: "Verkada",
-      position: "Incoming Software Engineer Intern",
+      position: "Incoming Software Engineer Intern @ Core Command team",
       logo: "/images/companies/verkada.svg",
       technologies: [],
     },
@@ -43,13 +43,13 @@ export const portfolio = {
       company: "Carta",
       position: "Software Engineer Intern",
       logo: "/images/companies/carta.svg",
-      technologies: [],
+      technologies: ["backend development", "data pipelines", "distributed systems"],
     },
     {
       company: "Propel Holdings",
       position: "Software Engineer Intern",
       logo: "/images/companies/propel.svg",
-      technologies: [],
+      technologies: ["backend development", "query optimization", "testing"],
     },
   ],
   projects: [
