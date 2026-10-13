@@ -21,7 +21,7 @@ export function ExperienceSection() {
         </h2>
         <p>
           {portfolio.experienceIntro.map((segment) =>
-            segment.italic ? (
+            "italic" in segment && segment.italic ? (
               <em key={segment.text}>{segment.text}</em>
             ) : (
               segment.text
