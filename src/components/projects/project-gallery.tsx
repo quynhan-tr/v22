@@ -23,7 +23,7 @@ function ProjectPreview({
           src={project.image}
           alt={project.alt}
           fill
-          sizes="(max-width: 600px) 90vw, 560px"
+          sizes="(max-width: 760px) calc(100vw - 88px), 648px"
         />
       </span>
     );
@@ -118,6 +118,38 @@ function ProjectCard({
   );
 }
 
+function PopupDescription({ description }: { description: string }) {
+  return (
+    <div className="project-popup-description">
+      {description.split("*").map((paragraph, paragraphIndex) => (
+        <p key={paragraphIndex}>
+          {paragraph
+            .trim()
+            .split(/(\[[^\]]+\]\(https?:\/\/[^)]+\))/g)
+            .map((part, partIndex) => {
+              const link = part.match(
+                /^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/,
+              );
+
+              return link ? (
+                <a
+                  href={link[2]}
+                  target="_blank"
+                  rel="noreferrer"
+                  key={partIndex}
+                >
+                  {link[1]}
+                </a>
+              ) : (
+                part
+              );
+            })}
+        </p>
+      ))}
+    </div>
+  );
+}
+
 export function ProjectGallery() {
   const dialog = useRef<HTMLDialogElement>(null);
   const [selected, setSelected] = useState<PortfolioProject>(
@@ -162,12 +194,24 @@ export function ProjectGallery() {
             ×
           </button>
           <ProjectPreview project={selected} enlarged />
-          <p className="eyebrow">{selected.category}</p>
+          <div className="dialog-meta">
+            <p className="eyebrow">{selected.category}</p>
+            <div className="project-links">
+              {selected.links.map((link) => (
+                <a
+                  className="text-link"
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  key={link.name}
+                >
+                  {link.name} <Arrow />
+                </a>
+              ))}
+            </div>
+          </div>
           <h2 id="project-dialog-title">{selected.title}</h2>
-          <p>{selected.description}</p>
-          <button className="text-link" onClick={closeProject}>
-            Back to the notebook <Arrow />
-          </button>
+          <PopupDescription description={selected.popupDescription} />
         </div>
       </dialog>
     </>

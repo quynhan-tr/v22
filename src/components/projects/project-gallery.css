@@ -189,7 +189,7 @@
 }
 
 .project-dialog {
-  width: min(560px, calc(100vw - 40px));
+  width: min(720px, calc(100vw - 40px));
   max-height: calc(100dvh - 60px);
   padding: 0;
   margin: auto;
@@ -234,12 +234,37 @@
   margin: 16px 0;
 }
 
-.dialog-content > p:not(.eyebrow) {
+.project-popup-description {
+  display: grid;
+  gap: 5px;
+}
+
+.project-popup-description p {
   color: var(--muted);
 }
 
-.dialog-content .text-link {
-  margin-top: 24px;
+.project-popup-description a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink-soft);
+}
+
+.dialog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.project-links .text-link {
+  min-width: 88px;
+  justify-content: center;
 }
 
 @media (max-width: 1000px) {
