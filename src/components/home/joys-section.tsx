@@ -1,7 +1,12 @@
+import Image from "next/image";
+
 import { JoyVideo } from "@/components/home/joy-video";
 import { joys } from "@/content/joys";
+import { getLastPlayedTrack } from "@/lib/spotify";
 
-export function JoysSection() {
+export async function JoysSection() {
+  const lastPlayed = await getLastPlayedTrack();
+
   return (
     <section id="joys" className="joys section" aria-labelledby="joys-title">
       <p className="eyebrow">{joys.eyebrow}</p>
@@ -40,10 +45,7 @@ export function JoysSection() {
           </article>
 
           <article className="joy-note music-note">
-            <div
-              className="joy-note-art record-doodle"
-              aria-hidden="true"
-            >
+            <div className="joy-note-art record-doodle" aria-hidden="true">
               <svg viewBox="0 0 64 64" fill="none">
                 <circle cx="32" cy="32" r="26" />
                 <circle cx="32" cy="32" r="18" />
@@ -54,19 +56,37 @@ export function JoysSection() {
             </div>
             <div>
               <p className="eyebrow">{joys.music.eyebrow}</p>
-              {joys.music.lastPlayed ? (
-                <>
-                  <h3>
+              {lastPlayed ? (
+                <div className="spotify-track">
+                  {lastPlayed.imageUrl && (
                     <a
-                      href={joys.music.lastPlayed.url}
+                      href={lastPlayed.url}
                       target="_blank"
                       rel="noreferrer"
+                      aria-label={`Open ${lastPlayed.title} on Spotify`}
                     >
-                      {joys.music.lastPlayed.title} ↗
+                      <Image
+                        className="spotify-album-art"
+                        src={lastPlayed.imageUrl}
+                        alt={`${lastPlayed.title} album cover`}
+                        width={64}
+                        height={64}
+                      />
                     </a>
-                  </h3>
-                  <p>{joys.music.lastPlayed.artist}</p>
-                </>
+                  )}
+                  <div>
+                    <h3>
+                      <a
+                        href={lastPlayed.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {lastPlayed.title}
+                      </a>
+                    </h3>
+                    <p>{lastPlayed.artist}</p>
+                  </div>
+                </div>
               ) : (
                 <>
                   <h3>{joys.music.fallbackTitle}</h3>
