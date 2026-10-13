@@ -4,6 +4,7 @@ import "./globals.css";
 import "@/components/layout/layout.css";
 import "@/components/home/home.css";
 import "@/components/home/portrait-illustration.css";
+import "@/components/home/joys-section.css";
 import "@/components/projects/project-gallery.css";
 import "@/components/flower/flower.css";
 

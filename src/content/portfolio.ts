@@ -1,4 +1,3 @@
-export type JoyIconKind = "book" | "camera" | "cup" | "plant";
 export type ProjectFrameStyle = "stamp" | "record" | "note" | "photo";
 
 type Experience = {
@@ -6,12 +5,6 @@ type Experience = {
   position: string;
   logo: string;
   technologies: readonly string[];
-};
-
-type Joy = {
-  icon: JoyIconKind;
-  title: string;
-  description: string;
 };
 
 type Project = {
@@ -35,7 +28,7 @@ export const portfolio = {
   experiences: [
     {
       company: "Verkada",
-      position: "Incoming Software Engineer Intern @ Core Command team",
+      position: "Inc. Software Engineer Intern @ Core Command team",
       logo: "/images/companies/verkada.svg",
       technologies: [],
     },
@@ -43,13 +36,13 @@ export const portfolio = {
       company: "Carta",
       position: "Software Engineer Intern",
       logo: "/images/companies/carta.svg",
-      technologies: ["backend development", "data pipelines", "distributed systems"],
+      technologies: ["backend", "data pipelines", "distributed systems"],
     },
     {
       company: "Propel Holdings",
       position: "Software Engineer Intern",
       logo: "/images/companies/propel.svg",
-      technologies: ["backend development", "query optimization", "testing"],
+      technologies: ["backend", "query optimization", "testing"],
     },
   ],
   projects: [
@@ -111,38 +104,12 @@ export const portfolio = {
       frame: { style: "note", caption: "new faces, new friends" },
     },
   ],
-  joys: [
-    {
-      icon: "book",
-      title: "Between the pages",
-      description:
-        "A favourite book, a line to return to, or whatever is on the reading pile.",
-    },
-    {
-      icon: "camera",
-      title: "Out in the world",
-      description: "Places to wander, and the details you notice along the way.",
-    },
-    {
-      icon: "cup",
-      title: "Ordinary rituals",
-      description:
-        "The slow, everyday moments that make a day feel like your own.",
-    },
-    {
-      icon: "plant",
-      title: "Growing things",
-      description:
-        "Something you’re learning, tending to, or simply curious about.",
-    },
-  ],
 } as const satisfies {
   name: string;
   email: string;
   experienceIntro: string;
   experiences: readonly Experience[];
   projects: readonly Project[];
-  joys: readonly Joy[];
 };
 
 export type PortfolioProject = (typeof portfolio.projects)[number];
