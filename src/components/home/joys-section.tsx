@@ -7,7 +7,6 @@ export function JoysSection() {
       <p className="eyebrow">{joys.eyebrow}</p>
       <div className="joys-heading">
         <h2 id="joys-title">{joys.title}</h2>
-        <p className="handwritten">{joys.subtitle}</p>
       </div>
 
       <div className="joys-layout">

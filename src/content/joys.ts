@@ -7,7 +7,6 @@ type Track = {
 type JoyContent = {
   eyebrow: string;
   title: string;
-  subtitle: string;
   gallery: {
     src: string;
     caption: string;
@@ -33,9 +32,8 @@ type JoyContent = {
 };
 
 export const joys: JoyContent = {
-  eyebrow: "03 — Outside the work",
+  eyebrow: "03 — Outside of work",
   title: "Things I’ve been up to",
-  subtitle: "A few small things worth keeping.",
   gallery: {
     src: "/gallery/beach.mp4",
     caption: "Da Nang, Vietnam",
@@ -43,14 +41,14 @@ export const joys: JoyContent = {
   },
   coffee: {
     eyebrow: "Coffee, lately",
-    title: "A little latte practice.",
+    title: "Barista!?",
     description:
-      "I learned to make lattes, pull espresso, and find my way around a coffee machine at Carta.",
+      "Recently I learned to pull espresso shots and make latte “art” with friends @ Carta.",
   },
   watch: {
     eyebrow: "On my watchlist",
     title: "Avatar: Seven Havens",
-    description: "A little escape to another world.",
+    description: "Patiently waiting for the next episode :)",
   },
   music: {
     eyebrow: "Last played on Spotify",
