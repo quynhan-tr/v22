@@ -17,13 +17,19 @@ export function ExperienceSection() {
 
       <div className="experience-intro">
         <h2 id="about-title">
-          Learning by
-          <br />
-          building.
+          My journey so far
         </h2>
-        <p>{portfolio.experienceIntro}</p>
+        <p>
+          {portfolio.experienceIntro.map((segment) =>
+            segment.italic ? (
+              <em key={segment.text}>{segment.text}</em>
+            ) : (
+              segment.text
+            ),
+          )}
+        </p>
         <p className="handwritten experience-signoff">
-          A few stops along the way.
+          A few stops along the way...
         </p>
       </div>
 

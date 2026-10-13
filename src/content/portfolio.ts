@@ -7,6 +7,11 @@ type Experience = {
   technologies: readonly string[];
 };
 
+type IntroSegment = {
+  text: string;
+  italic?: boolean;
+};
+
 type Project = {
   id: string;
   image: string;
@@ -23,8 +28,15 @@ type Project = {
 export const portfolio = {
   name: "An Tran",
   email: "an.tran@waterloo.ca",
-  experienceIntro:
-    "I’m a computer science student at Waterloo, exploring where I’d like to take my work in software engineering. Internships are one way I’m learning along the way.",
+  experienceIntro: [
+    { text: "I’ve spent my internships working mostly on " },
+    { text: "backend systems", italic: true },
+    { text: ". I’m interested in " },
+    { text: "distributed systems", italic: true },
+    { text: " and want to get deeper into how they work. " },
+    { text: "AI and machine learning", italic: true },
+    { text: " are also areas I’d love to learn more about." },
+  ],
   experiences: [
     {
       company: "Verkada",
@@ -42,7 +54,7 @@ export const portfolio = {
       company: "Propel Holdings",
       position: "Software Engineer Intern",
       logo: "/images/companies/propel.svg",
-      technologies: ["backend", "query optimization", "testing"],
+      technologies: ["backend", "API development", "query optimization", "testing"],
     },
   ],
   projects: [
@@ -107,7 +119,7 @@ export const portfolio = {
 } as const satisfies {
   name: string;
   email: string;
-  experienceIntro: string;
+  experienceIntro: readonly IntroSegment[];
   experiences: readonly Experience[];
   projects: readonly Project[];
 };
