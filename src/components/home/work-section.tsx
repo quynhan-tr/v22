@@ -9,7 +9,7 @@ export function WorkSection() {
     >
       <p className="eyebrow">02 — Things I’ve been making</p>
       <div className="section-heading">
-        <h2 id="work-title">Selected work.</h2>
+        <h2 id="work-title">Selected work</h2>
         <p>
           A few pages from my notebook.
           <br />
@@ -18,7 +18,7 @@ export function WorkSection() {
       </div>
       <ProjectGallery />
       <p className="handwritten work-note">
-        Always a work in progress. That’s the lovely part.
+        always built with lots of love.
       </p>
     </section>
   );

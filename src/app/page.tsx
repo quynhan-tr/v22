@@ -1,5 +1,4 @@
 import { FallingFlower } from "@/components/flower/falling-flower";
-import { ContactSection } from "@/components/home/contact-section";
 import { ExperienceSection } from "@/components/home/experience-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { JoysSection } from "@/components/home/joys-section";
@@ -19,7 +18,6 @@ export default function Home() {
         <ExperienceSection />
         <WorkSection />
         <JoysSection />
-        <ContactSection />
       </main>
       <FallingFlower />
       <SiteFooter />
