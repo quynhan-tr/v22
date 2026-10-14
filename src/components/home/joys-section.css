@@ -290,6 +290,7 @@
 
 .joys-old-website {
   margin-left: auto;
+  transform: translateY(6px);
   color: #6384ad;
   font-family: var(--font-sans-body), sans-serif;
   font-size: 10px;
