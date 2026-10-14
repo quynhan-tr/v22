@@ -31,7 +31,7 @@
 .portrait-callout {
   fill: var(--ink);
   font-family: var(--font-serif-display), Georgia, serif;
-  font-size: 52px;
+  font-size: 46px;
   font-style: italic;
   pointer-events: none;
   opacity: 0;
@@ -40,6 +40,13 @@
 
 .portrait-callout-flower-label {
   font-size: 0.9em;
+}
+
+.portrait-callout-subtitle {
+  font-family: var(--font-sans-body), Arial, sans-serif;
+  font-size: 23px;
+  font-style: normal;
+  opacity: 0.72;
 }
 
 .portrait-callout-arrow {
@@ -67,7 +74,7 @@
   }
 
   .portrait-callout {
-    font-size: 64px;
+    font-size: 56px;
   }
 }
 
