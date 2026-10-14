@@ -1,5 +1,5 @@
 .flower-flight {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 264px;
@@ -7,6 +7,9 @@
   pointer-events: none;
   visibility: hidden;
   transform-origin: center;
+}
+
+.notebook[data-flower-flight="falling"] .flower-flight {
   will-change: transform;
 }
 
@@ -31,9 +34,26 @@
   overflow: visible;
 }
 
-.notebook[data-flower-flight="ready"] .portrait-attached-flower,
-.notebook[data-flower-flight="ready"] .flower-landing svg {
+.notebook[data-flower-flight="falling"] .portrait-attached-flower,
+.notebook[data-flower-flight="landed"] .portrait-attached-flower,
+.notebook[data-flower-flight="attached"] .flower-landing svg,
+.notebook[data-flower-flight="returning"] .flower-landing svg,
+.notebook[data-flower-flight="falling"] .flower-landing svg {
   visibility: hidden;
+}
+
+.notebook[data-flower-flight="returning"] .portrait-attached-flower {
+  animation: portrait-flower-return 650ms ease-in-out both;
+}
+
+@keyframes portrait-flower-return {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 700px) {
@@ -55,12 +75,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .notebook[data-flower-flight="returning"] .portrait-attached-flower {
+    animation: none;
+  }
+
   .flower-flight {
     display: none;
   }
 
-  .notebook[data-flower-flight="ready"] .portrait-attached-flower,
-  .notebook[data-flower-flight="ready"] .flower-landing svg {
+  .notebook[data-flower-flight] .portrait-attached-flower,
+  .notebook[data-flower-flight] .flower-landing svg {
     visibility: visible;
   }
 }

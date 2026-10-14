@@ -98,6 +98,7 @@ h2 {
 }
 
 .notebook {
+  position: relative;
   max-width: 1260px;
   padding: 0 62px;
   margin: 0 auto;

@@ -46,7 +46,7 @@ export function FallingFlower() {
     let frame = 0;
     let needsMeasure = true;
     let disposed = false;
-    let phase: "attached" | "falling" | "landed" =
+    let phase: "attached" | "returning" | "falling" | "landed" =
       window.scrollY > SCROLL_TRIGGER_PX ? "landed" : "attached";
     let fallStartedAt = 0;
     let previousScrollY = window.scrollY;
@@ -58,6 +58,8 @@ export function FallingFlower() {
           endX: number;
           endY: number;
           endWidth: number;
+          viewportLeft: number;
+          viewportRight: number;
           mobile: boolean;
         }
       | undefined;
@@ -71,14 +73,19 @@ export function FallingFlower() {
         flowerBounds.y + flowerBounds.height / 2,
       ).matrixTransform(matrix);
       const target = landingElement.getBoundingClientRect();
+      const origin = notebookElement.getBoundingClientRect();
 
+      // Use the scrolling container's coordinates so native scrolling moves
+      // the flower and artwork together, without JS scroll compensation.
       geometry = {
-        startX: source.x + window.scrollX,
-        startY: source.y + window.scrollY,
+        startX: source.x - origin.left,
+        startY: source.y - origin.top,
         startWidth: flowerBounds.width * Math.hypot(matrix.a, matrix.b),
-        endX: target.left + window.scrollX + target.width / 2,
-        endY: target.top + window.scrollY + target.height / 2,
+        endX: target.left - origin.left + target.width / 2,
+        endY: target.top - origin.top + target.height / 2,
         endWidth: target.width,
+        viewportLeft: -origin.left,
+        viewportRight: document.documentElement.clientWidth - origin.left,
         mobile: window.innerWidth <= 700,
       };
     }
@@ -96,6 +103,21 @@ export function FallingFlower() {
         delete notebookElement.dataset.flowerFlight;
         flightElement.style.visibility = "hidden";
         if (phase === "falling") phase = "landed";
+        if (phase === "returning") phase = "attached";
+        return;
+      }
+
+      const progress =
+        phase === "falling"
+          ? clamp((time - fallStartedAt) / FALL_DURATION_MS)
+          : 0;
+      if (phase === "falling" && progress === 1) phase = "landed";
+
+      // At rest, show the flower belonging to the actual illustration or
+      // landing section. Only the flight needs an animated overlay.
+      if (phase !== "falling") {
+        notebookElement.dataset.flowerFlight = phase;
+        flightElement.style.visibility = "hidden";
         return;
       }
 
@@ -104,15 +126,6 @@ export function FallingFlower() {
         needsMeasure = false;
       }
       if (!geometry) return;
-
-      const progress =
-        phase === "attached"
-          ? 0
-          : phase === "landed"
-            ? 1
-            : clamp((time - fallStartedAt) / FALL_DURATION_MS);
-
-      if (phase === "falling" && progress === 1) phase = "landed";
 
       const turn = smooth(clamp((progress - 0.025) / (TURN_END - 0.025)));
       const descent = smooth(progress);
@@ -138,7 +151,7 @@ export function FallingFlower() {
 
       let x: number;
       if (geometry.mobile) {
-        const railX = document.documentElement.clientWidth - 33;
+        const railX = geometry.viewportRight - 33;
         const enterMargin = smooth(clamp(progress / 0.32));
         const arrive = smooth(clamp((progress - 0.76) / 0.24));
         x =
@@ -189,13 +202,16 @@ export function FallingFlower() {
                 Math.abs(Math.sin(radians)))) /
           2;
         const marginX =
-          document.documentElement.clientWidth - halfExtent - 6;
-        x = Math.min(marginX, Math.max(halfExtent + 8, x));
+          geometry.viewportRight - halfExtent - 6;
+        x = Math.min(
+          marginX,
+          Math.max(geometry.viewportLeft + halfExtent + 8, x),
+        );
       }
 
-      flightElement.style.transform = `translate3d(${x - window.scrollX}px, ${y - window.scrollY}px, 0) translate(-50%, -50%) rotate(${rotation}deg) scale(${width / flowerBounds.width})`;
+      flightElement.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${rotation}deg) scale(${width / flowerBounds.width})`;
       flightElement.style.visibility = "visible";
-      notebookElement.dataset.flowerFlight = "ready";
+      notebookElement.dataset.flowerFlight = "falling";
 
       if (phase === "falling") schedule();
     }
@@ -203,6 +219,29 @@ export function FallingFlower() {
     function resize() {
       needsMeasure = true;
       schedule();
+    }
+
+    function startFall() {
+      phase = "falling";
+      fallStartedAt = performance.now();
+      needsMeasure = true;
+      schedule();
+    }
+
+    function finishReturn(event: AnimationEvent) {
+      if (event.animationName !== "portrait-flower-return" || phase !== "returning") {
+        return;
+      }
+
+      phase = "attached";
+      // Let the return finish before releasing again, even if the user has
+      // already scrolled down. This avoids jumping to a fully opaque
+      // flight cutout midway through the fade.
+      if (!reducedMotion.matches && window.scrollY > SCROLL_TRIGGER_PX) {
+        startFall();
+      } else {
+        schedule();
+      }
     }
 
     function onScroll() {
@@ -214,20 +253,20 @@ export function FallingFlower() {
         scrollY > SCROLL_TRIGGER_PX &&
         scrollY > previousScrollY
       ) {
-        phase = "falling";
-        fallStartedAt = performance.now();
-      } else if (phase === "landed" && scrollY <= 1) {
-        phase = "attached";
+        startFall();
+      } else if ((phase === "falling" || phase === "landed") && scrollY <= 1) {
+        phase = reducedMotion.matches ? "attached" : "returning";
+        schedule();
       }
 
       previousScrollY = scrollY;
-      schedule();
     }
 
     const observer = new ResizeObserver(resize);
     observer.observe(portraitElement);
     observer.observe(landingElement);
     observer.observe(notebookElement);
+    portraitElement.addEventListener("animationend", finishReturn);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", resize);
     window.addEventListener("pageshow", resize);
@@ -241,6 +280,7 @@ export function FallingFlower() {
       disposed = true;
       window.cancelAnimationFrame(frame);
       observer.disconnect();
+      portraitElement.removeEventListener("animationend", finishReturn);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pageshow", resize);
