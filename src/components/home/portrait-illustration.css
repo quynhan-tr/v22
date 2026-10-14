@@ -58,8 +58,28 @@
   vector-effect: non-scaling-stroke;
 }
 
+/* Mask strokes that draw the arrow in: curve first, then the head. They
+   reset only after the callout has faded, so it never visibly undraws. */
+.callout-arrow-trace {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 6;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0s linear var(--dur-fast);
+}
+
 .portrait-detail:is(:hover, :focus-visible) .portrait-callout {
   opacity: 1;
+}
+
+.portrait-detail:is(:hover, :focus-visible) .callout-arrow-trace {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.32s var(--ease-draw) 40ms;
+}
+
+.portrait-detail:is(:hover, :focus-visible) .callout-arrow-head {
+  transition: stroke-dashoffset 0.08s ease-out 0.34s;
 }
 
 @media (min-width: 1450px) {

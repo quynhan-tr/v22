@@ -24,6 +24,47 @@ function PortraitDetail({
   );
 }
 
+// Drawn in on hover by a mask that traces the arrow, so the visible stroke
+// keeps its non-scaling width (which breaks pathLength dashes in Chrome).
+// Curve and head are separate traces because Chrome restarts dashes on
+// every subpath.
+function CalloutArrow({
+  id,
+  curve,
+  head,
+}: {
+  id: string;
+  curve: string;
+  head: string;
+}) {
+  const maskId = `callout-arrow-${id}`;
+
+  return (
+    <>
+      <mask
+        id={maskId}
+        maskUnits="userSpaceOnUse"
+        x="0"
+        y="0"
+        width="1232"
+        height="1277"
+      >
+        <path className="callout-arrow-trace" d={curve} pathLength={1} />
+        <path
+          className="callout-arrow-trace callout-arrow-head"
+          d={head}
+          pathLength={1}
+        />
+      </mask>
+      <path
+        className="portrait-callout-arrow"
+        d={curve + head}
+        mask={`url(#${maskId})`}
+      />
+    </>
+  );
+}
+
 export function PortraitIllustration() {
   return (
     <figure className="portrait">
@@ -103,9 +144,10 @@ export function PortraitIllustration() {
           <text className="portrait-callout-subtitle" x="215" y="209" textAnchor="end">
             viet conical hat
           </text>
-          <path
-            className="portrait-callout-arrow"
-            d="M235 175Q298 175 334 232m-20-9 20 9 2-22"
+          <CalloutArrow
+            id="hat"
+            curve="M235 175Q298 175 334 232"
+            head="M314 223 334 232 336 210"
           />
         </PortraitDetail>
 
@@ -119,9 +161,10 @@ export function PortraitIllustration() {
           <text className="portrait-callout-subtitle" x="180" y="1074" textAnchor="end">
             traditional viet dress
           </text>
-          <path
-            className="portrait-callout-arrow"
-            d="M205 1040Q280 1080 336 1032m-21 2 21-2-4 21"
+          <CalloutArrow
+            id="dress"
+            curve="M205 1040Q280 1080 336 1032"
+            head="M315 1034 336 1032 332 1053"
           />
         </PortraitDetail>
 
@@ -145,9 +188,10 @@ export function PortraitIllustration() {
           >
             epiphyllum · my middle name
           </text>
-          <path
-            className="portrait-callout-arrow"
-            d="M1030 1135Q1135 1110 1107 1054m-6 22 6-22 21 10"
+          <CalloutArrow
+            id="flower"
+            curve="M1030 1135Q1135 1110 1107 1054"
+            head="M1101 1076 1107 1054 1128 1064"
           />
         </PortraitDetail>
       </svg>
