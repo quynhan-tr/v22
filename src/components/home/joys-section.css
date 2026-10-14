@@ -288,14 +288,23 @@
   font-size: 22px;
 }
 
-.joys-signoff svg {
-  width: 60px;
-  height: 53px;
-  flex-shrink: 0;
-  stroke: var(--ink);
-  stroke-width: 1.25;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.joys-old-website {
+  margin-left: auto;
+  color: #6384ad;
+  font-family: var(--font-sans-body), sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.075em;
+  text-align: right;
+  text-transform: uppercase;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.joys-old-website:hover {
+  text-decoration-line: underline;
 }
 
 @media (min-width: 701px) {
@@ -410,7 +419,4 @@
     font-size: 19px;
   }
 
-  .joys-signoff svg {
-    width: 49px;
-  }
 }

@@ -101,10 +101,10 @@ export async function JoysSection() {
       </div>
 
       <p className="joys-signoff handwritten">
-        <svg viewBox="0 0 76 62" fill="none" aria-hidden="true">
-          <path d="m5 24 61-9 6 37-64 7ZM5 24l35 20 26-29M8 59l24-21m17-4 23 18M49 13c-17-4-6-15 0-5 8-15 14-4 0 5Z" />
-        </svg>
-        {joys.signoff}
+        <span>{joys.signoff}</span>
+        <a className="joys-old-website" href="https://prev.antran.dev">
+          checkout my old website here
+        </a>
       </p>
     </section>
   );
