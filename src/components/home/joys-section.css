@@ -99,6 +99,35 @@
   align-items: center;
   padding: 25px 26px 29px;
   filter: drop-shadow(0 6px 5px #5a503510);
+  transform: rotate(var(--note-tilt, 0deg));
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .joy-note:hover {
+    transform: rotate(0deg) translateY(-3px);
+  }
+}
+
+/* Runs only while hovered; pausing (not removing) keeps the record where it stopped. */
+.record-doodle svg {
+  animation: record-spin 5s linear infinite paused;
+}
+
+.music-note:hover .record-doodle svg {
+  animation-play-state: running;
+}
+
+@keyframes record-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .record-doodle svg {
+    animation: none;
+  }
 }
 
 .joy-note > div:not(.joy-note-art) {
@@ -164,8 +193,8 @@
 }
 
 .coffee-note {
+  --note-tilt: -1deg;
   padding-bottom: 47px;
-  transform: rotate(-1deg);
 }
 
 .coffee-note::before {
@@ -223,8 +252,8 @@
 }
 
 .watch-note {
+  --note-tilt: 0.6deg;
   background: #e5ebe8;
-  transform: rotate(0.6deg);
   mask:
     radial-gradient(
         circle 9px at calc(100% - 96px) 0,
@@ -256,7 +285,7 @@
 }
 
 .music-note {
-  transform: rotate(-0.6deg);
+  --note-tilt: -0.6deg;
   background:
     repeating-linear-gradient(
       to bottom,

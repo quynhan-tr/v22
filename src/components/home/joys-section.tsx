@@ -9,15 +9,21 @@ export async function JoysSection() {
 
   return (
     <section id="joys" className="joys section" aria-labelledby="joys-title">
-      <p className="eyebrow">{joys.eyebrow}</p>
-      <div className="joys-heading">
+      <p className="eyebrow" data-reveal>
+        {joys.eyebrow}
+      </p>
+      <div className="joys-heading" data-reveal>
         <h2 id="joys-title">{joys.title}</h2>
       </div>
 
       <div className="joys-layout">
         <JoyVideo />
         <aside className="joy-notes" aria-label="A few things I’m into">
-          <article className="joy-note coffee-note">
+          <article
+            className="joy-note coffee-note"
+            data-reveal
+            style={{ "--reveal-index": 1 } as React.CSSProperties}
+          >
             <div className="joy-note-art" aria-hidden="true">
               <svg viewBox="0 0 64 64" fill="none">
                 <path d="M8 12q24-5 48 0l-3 27q-2 16-21 16T11 39Z" />
@@ -31,7 +37,11 @@ export async function JoysSection() {
             </div>
           </article>
 
-          <article className="joy-note watch-note">
+          <article
+            className="joy-note watch-note"
+            data-reveal
+            style={{ "--reveal-index": 2 } as React.CSSProperties}
+          >
             <div className="joy-note-art" aria-hidden="true">
               <svg viewBox="0 0 64 64" fill="none">
                 <path d="m32 5 8 19 20 2-16 13 5 20-17-11-18 11 5-20L3 26l21-2Z" />
@@ -44,7 +54,11 @@ export async function JoysSection() {
             </div>
           </article>
 
-          <article className="joy-note music-note">
+          <article
+            className="joy-note music-note"
+            data-reveal
+            style={{ "--reveal-index": 3 } as React.CSSProperties}
+          >
             <div className="joy-note-art record-doodle" aria-hidden="true">
               <svg viewBox="0 0 64 64" fill="none">
                 <circle cx="32" cy="32" r="26" />
@@ -100,7 +114,7 @@ export async function JoysSection() {
         </aside>
       </div>
 
-      <p className="joys-signoff handwritten">
+      <p className="joys-signoff handwritten" data-reveal>
         <span>{joys.signoff}</span>
         <a className="joys-old-website" href="https://prev.antran.dev">
           checkout my old website here

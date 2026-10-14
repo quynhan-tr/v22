@@ -8,12 +8,31 @@ import {
   MailIcon,
 } from "@/components/ui/illustrations";
 
-function NavigationLinks({ showLabels = false }: { showLabels?: boolean }) {
+const sections = [
+  { id: "about", label: "About" },
+  { id: "work", label: "Work" },
+  { id: "joys", label: "Joy" },
+];
+
+function NavigationLinks({
+  showLabels = false,
+  activeSection,
+}: {
+  showLabels?: boolean;
+  activeSection: string | null;
+}) {
   return (
     <>
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#joys">Joy</a>
+      {sections.map(({ id, label }) => (
+        <a
+          key={id}
+          href={`#${id}`}
+          className="section-link"
+          aria-current={activeSection === id ? "location" : undefined}
+        >
+          {label}
+        </a>
+      ))}
       <div className="social-links">
         <a href={`mailto:${portfolio.email}`} aria-label="Email An Tran">
           <MailIcon />
@@ -43,9 +62,11 @@ function NavigationLinks({ showLabels = false }: { showLabels?: boolean }) {
 }
 
 export function SiteHeader() {
+  const headerRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLDialogElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuClosing, setMenuClosing] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   const closeMenu = () => setMenuClosing(true);
 
@@ -58,8 +79,103 @@ export function SiteHeader() {
     return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
 
+  // Sticky header that moves with the scroll: scrolling down pushes it off
+  // the top 1:1 (as if it weren't sticky), scrolling up pulls it back in.
+  // When scrolling stops halfway, it settles to fully shown or hidden.
+  // Written straight to the DOM so scrolling never re-renders React.
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const headerElement = header;
+    let collapse = 0;
+    let visibleHeight = 0;
+    let offset = 0;
+    let previousY = Math.max(0, window.scrollY);
+    let direction = 0;
+    let frame = 0;
+
+    function measure() {
+      collapse = -parseFloat(getComputedStyle(headerElement).top) || 1;
+      visibleHeight = headerElement.offsetHeight - collapse;
+    }
+
+    function apply() {
+      headerElement.style.setProperty("--header-offset", `${offset}px`);
+    }
+
+    function update() {
+      frame = 0;
+      headerElement.removeAttribute("data-settling");
+      const y = Math.max(0, window.scrollY);
+      const delta = y - previousY;
+      if (delta) direction = Math.sign(delta);
+      previousY = y;
+
+      headerElement.style.setProperty(
+        "--header-progress",
+        String(Math.min(y / collapse, 1)),
+      );
+      // Never pushed further than the page has scrolled past the pin point,
+      // so on the way down it leaves exactly as a non-sticky header would.
+      const pinnedBy = Math.max(0, y - collapse);
+      offset = Math.min(Math.max(offset + delta, 0), visibleHeight, pinnedBy);
+      apply();
+    }
+
+    function settle() {
+      if (offset <= 0 || offset >= visibleHeight) return;
+      offset = direction < 0 ? 0 : visibleHeight;
+      headerElement.setAttribute("data-settling", "");
+      apply();
+    }
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+
+    measure();
+    // Landing mid-page (reload, deep link) starts with the header tucked away.
+    offset = window.scrollY > collapse ? visibleHeight : 0;
+    apply();
+    window.addEventListener("scrollend", settle);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scrollend", settle);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  // Highlight the section crossing a band just above the middle of the screen.
+  useEffect(() => {
+    const visible = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        }
+        setActiveSection(sections.find(({ id }) => visible.has(id))?.id ?? null);
+      },
+      { rootMargin: "-40% 0px -55% 0px" },
+    );
+
+    for (const { id } of sections) {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    }
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <header className="site-header">
+    <header ref={headerRef} className="site-header">
       <a
         className="signature"
         href="#top"
@@ -68,7 +184,7 @@ export function SiteHeader() {
         {portfolio.name}
       </a>
       <nav className="desktop-navigation" aria-label="Main navigation">
-        <NavigationLinks />
+        <NavigationLinks activeSection={activeSection} />
       </nav>
       <button
         className="menu-toggle"
@@ -137,7 +253,7 @@ export function SiteHeader() {
               }
             }}
           >
-            <NavigationLinks showLabels />
+            <NavigationLinks showLabels activeSection={activeSection} />
           </nav>
         </div>
       </dialog>

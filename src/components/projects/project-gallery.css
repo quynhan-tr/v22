@@ -28,7 +28,7 @@
 
 .project-preview img {
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform var(--dur-base) var(--ease-out);
 }
 
 .project-button:hover .project-preview img {
@@ -64,7 +64,7 @@
   border: 1px solid var(--rule);
   box-shadow: 2px 5px 9px #263e5b12;
   transform: rotate(var(--paper-tilt));
-  transition: transform 0.35s ease;
+  transition: transform var(--dur-base) var(--ease-out);
 }
 
 .project-paper-label {
@@ -227,6 +227,58 @@
 
 .project-preview-large img {
   object-fit: contain;
+  transition: opacity var(--dur-base) ease;
+}
+
+/* Card ⇄ popup morph (see ProjectGallery). The photo flies between its card
+   and the popup; the rest of the popup rises in, and the page crossfades
+   underneath to bring in the backdrop. */
+[data-project-morph] .project-dialog {
+  view-transition-name: project-dialog;
+}
+
+[data-project-morph] .project-dialog .project-preview-large {
+  view-transition-name: project-photo;
+}
+
+::view-transition-group(project-photo) {
+  overflow: hidden;
+  animation-duration: 480ms;
+  animation-timing-function: var(--ease-out);
+}
+
+::view-transition-old(project-photo),
+::view-transition-new(project-photo) {
+  height: 100%;
+  object-fit: cover;
+  animation-duration: 300ms;
+}
+
+::view-transition-new(project-dialog):only-child {
+  animation: popup-in 420ms var(--ease-out) both;
+}
+
+::view-transition-old(project-dialog):only-child {
+  animation: popup-out 220ms ease-in both;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 320ms;
+}
+
+@keyframes popup-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+}
+
+@keyframes popup-out {
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
 }
 
 .project-image-placeholder {

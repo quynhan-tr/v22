@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { getImageProps } from "next/image";
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { flushSync, preload } from "react-dom";
 import { Arrow } from "@/components/ui/illustrations";
 import { portfolio, type PortfolioProject } from "@/content/portfolio";
@@ -28,8 +28,45 @@ function preloadProjectImage(project: PortfolioProject) {
   });
 }
 
+// Fetches and decodes the popup image so the open morph lands on the real
+// picture rather than the loading placeholder. Capped so a slow network never
+// holds the click hostage.
+function loadProjectImage(project: PortfolioProject) {
+  const { props } = getImageProps({
+    src: project.image,
+    alt: project.alt,
+    fill: true,
+    sizes: popupImageSizes,
+  });
+  const image = new window.Image();
+  if (props.sizes) image.sizes = props.sizes;
+  if (props.srcSet) image.srcset = props.srcSet;
+  image.src = props.src;
+
+  return Promise.race([
+    image.decode().catch(() => {}),
+    new Promise((resolve) => setTimeout(resolve, 250)),
+  ]);
+}
+
+function canMorph() {
+  return (
+    "startViewTransition" in document &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 function PopupPreview({ project }: { project: PortfolioProject }) {
+  const image = useRef<HTMLImageElement>(null);
   const [status, setStatus] = useState<"loading" | "loaded" | "error">("loading");
+
+  // A decoded image is complete on mount; show it in the same commit so the
+  // view transition snapshot captures it.
+  useLayoutEffect(() => {
+    if (image.current?.complete && image.current.naturalWidth > 0) {
+      setStatus("loaded");
+    }
+  }, []);
 
   return (
     <span
@@ -42,6 +79,7 @@ function PopupPreview({ project }: { project: PortfolioProject }) {
         </span>
       )}
       <Image
+        ref={image}
         src={project.image}
         alt={project.alt}
         fill
@@ -127,16 +165,25 @@ function ProjectCard({
 }: {
   project: PortfolioProject;
   index: number;
-  onOpen: (project: PortfolioProject) => void;
+  onOpen: (project: PortfolioProject, photo: HTMLElement | null) => void;
 }) {
   return (
-    <article className="project">
+    <article
+      className="project"
+      data-reveal
+      style={{ "--reveal-index": index % 3 } as React.CSSProperties}
+    >
       <button
         className="project-button"
         onPointerEnter={() => preloadProjectImage(project)}
         onPointerDown={() => preloadProjectImage(project)}
         onFocus={() => preloadProjectImage(project)}
-        onClick={() => onOpen(project)}
+        onClick={(event) =>
+          onOpen(
+            project,
+            event.currentTarget.querySelector<HTMLElement>(".project-photo"),
+          )
+        }
         aria-label={`Open ${project.title}`}
       >
         <ProjectPreview project={project} index={index} />
@@ -186,16 +233,58 @@ function PopupDescription({ description }: { description: string }) {
 export function ProjectGallery() {
   const dialog = useRef<HTMLDialogElement>(null);
   const [selected, setSelected] = useState<PortfolioProject | null>(null);
+  const openedFrom = useRef<HTMLElement | null>(null);
+  const morphing = useRef(false);
 
-  function openProject(project: PortfolioProject) {
+  // The card photo and the popup image share one view-transition-name, so the
+  // browser morphs one into the other. Names are only set for the duration of
+  // a transition (the popup's comes from the `data-project-morph` rule).
+  function morph(update: () => void, photo: HTMLElement) {
+    const root = document.documentElement;
+    morphing.current = true;
+    root.dataset.projectMorph = "";
+    const transition = document.startViewTransition(update);
+    // A skipped transition still runs `update`; only the animation is lost.
+    transition.ready.catch(() => {});
+    transition.finished.finally(() => {
+      photo.style.viewTransitionName = "";
+      delete root.dataset.projectMorph;
+      morphing.current = false;
+    });
+  }
+
+  async function openProject(project: PortfolioProject, photo: HTMLElement | null) {
+    if (morphing.current) return;
     preloadProjectImage(project);
-    // Commit the new content before the native dialog becomes visible.
-    flushSync(() => setSelected(project));
-    dialog.current?.showModal();
+
+    const show = () => {
+      // Commit the new content before the native dialog becomes visible.
+      flushSync(() => setSelected(project));
+      dialog.current?.showModal();
+    };
+
+    openedFrom.current = photo;
+    if (!photo || !canMorph()) return show();
+
+    morphing.current = true;
+    await loadProjectImage(project);
+    photo.style.viewTransitionName = "project-photo";
+    morph(() => {
+      photo.style.viewTransitionName = "";
+      show();
+    }, photo);
   }
 
   function closeProject() {
-    dialog.current?.close();
+    const current = dialog.current;
+    const photo = openedFrom.current;
+    if (!current?.open || morphing.current) return;
+    if (!photo || !canMorph()) return current.close();
+
+    morph(() => {
+      current.close();
+      photo.style.viewTransitionName = "project-photo";
+    }, photo);
   }
 
   return (
@@ -214,6 +303,10 @@ export function ProjectGallery() {
         className="project-dialog"
         ref={dialog}
         aria-labelledby="project-dialog-title"
+        onCancel={(event) => {
+          event.preventDefault();
+          closeProject();
+        }}
         onClick={(event) => {
           if (event.target === event.currentTarget) closeProject();
         }}

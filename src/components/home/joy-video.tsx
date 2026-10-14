@@ -2,7 +2,7 @@ import { joys } from "@/content/joys";
 
 export function JoyVideo() {
   return (
-    <div className="joy-gallery">
+    <div className="joy-gallery" data-reveal>
       <figure>
         <div className="joy-media">
           <video

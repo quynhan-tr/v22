@@ -1,9 +1,31 @@
 .site-header {
+  /* Sticks with only its lower part showing; the contents slide down by half
+     that amount (driven by --header-progress) to stay centred in the bar. */
+  --header-collapse: 36px;
+  position: sticky;
+  top: calc(var(--header-collapse) * -1);
+  z-index: 6;
   height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  box-shadow: 0 0 0 100vmax var(--paper);
+  clip-path: inset(0 -100vmax);
+  translate: 0 calc(var(--header-offset, 0px) * -1);
+}
+
+.site-header[data-settling] {
+  transition: translate var(--dur-base) var(--ease-out);
+}
+
+.site-header > :not(dialog) {
+  translate: 0 calc(var(--header-progress, 0) * var(--header-collapse) / 2);
+}
+
+.site-header:focus-within {
+  translate: none;
 }
 
 .signature {
@@ -19,10 +41,16 @@
 }
 
 .site-header nav a {
-  transition: opacity 0.2s;
+  transition: opacity var(--dur-base) var(--ease-out);
 }
 
-.site-header nav a:hover {
+/* Once a section is in view, the others step back so the current one reads. */
+.site-header nav:has([aria-current]) .section-link:not([aria-current]) {
+  opacity: 0.45;
+}
+
+.site-header nav a:hover,
+.site-header nav .section-link:not([aria-current]):hover {
   opacity: 0.6;
 }
 
@@ -210,6 +238,7 @@
 
 @media (max-width: 700px) {
   .site-header {
+    --header-collapse: 26px;
     height: 82px;
   }
 

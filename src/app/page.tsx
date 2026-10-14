@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/home/hero-section";
 import { JoysSection } from "@/components/home/joys-section";
 import { WorkSection } from "@/components/home/work-section";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { ScrollReveal } from "@/components/layout/scroll-reveal";
 import { SiteHeader } from "@/components/layout/site-header";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
         <JoysSection />
       </main>
       <FallingFlower />
+      <ScrollReveal />
       <SiteFooter />
     </div>
   );

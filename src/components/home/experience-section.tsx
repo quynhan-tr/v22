@@ -9,13 +9,15 @@ export function ExperienceSection() {
       aria-labelledby="about-title"
     >
       <div className="section-aside">
-        <p className="eyebrow">01 — Experience</p>
+        <p className="eyebrow" data-reveal>
+          01 — Experience
+        </p>
         <div id="flower-landing" className="flower-landing" aria-hidden="true">
           <QuynhFlower />
         </div>
       </div>
 
-      <div className="experience-intro">
+      <div className="experience-intro" data-reveal>
         <h2 id="about-title">
           My journey so far
         </h2>
@@ -35,8 +37,13 @@ export function ExperienceSection() {
 
       <div className="experience-history">
         <ul className="experience-list">
-          {portfolio.experiences.map((experience) => (
-            <li className="experience-entry" key={experience.company}>
+          {portfolio.experiences.map((experience, index) => (
+            <li
+              className="experience-entry"
+              key={experience.company}
+              data-reveal
+              style={{ "--reveal-index": index } as React.CSSProperties}
+            >
               <div className="company-mark" aria-hidden="true">
                 <span
                   className="company-logo"
