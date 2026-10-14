@@ -26,8 +26,8 @@ export async function JoysSection() {
           >
             <div className="joy-note-art" aria-hidden="true">
               <svg viewBox="0 0 64 64" fill="none">
-                <path d="M8 12q24-5 48 0l-3 27q-2 16-21 16T11 39Z" />
-                <path d="M27 23c-18-10-11 17 7 23 0-10 19-29 7-27-9 0-12 12-7 20" />
+                <path pathLength={1} d="M8 12q24-5 48 0l-3 27q-2 16-21 16T11 39Z" />
+                <path pathLength={1} d="M27 23c-18-10-11 17 7 23 0-10 19-29 7-27-9 0-12 12-7 20" />
               </svg>
             </div>
             <div>
@@ -44,7 +44,7 @@ export async function JoysSection() {
           >
             <div className="joy-note-art" aria-hidden="true">
               <svg viewBox="0 0 64 64" fill="none">
-                <path d="m32 5 8 19 20 2-16 13 5 20-17-11-18 11 5-20L3 26l21-2Z" />
+                <path pathLength={1} d="m32 5 8 19 20 2-16 13 5 20-17-11-18 11 5-20L3 26l21-2Z" />
               </svg>
             </div>
             <div>
@@ -61,11 +61,12 @@ export async function JoysSection() {
           >
             <div className="joy-note-art record-doodle" aria-hidden="true">
               <svg viewBox="0 0 64 64" fill="none">
-                <circle cx="32" cy="32" r="26" />
-                <circle cx="32" cy="32" r="18" />
-                <circle cx="32" cy="32" r="8" />
-                <circle cx="32" cy="32" r="2" />
-                <path d="M15 25a19 19 0 0 1 10-10m14 34a19 19 0 0 0 10-10" />
+                <circle pathLength={1} cx="32" cy="32" r="26" />
+                <circle pathLength={1} cx="32" cy="32" r="18" />
+                <circle pathLength={1} cx="32" cy="32" r="8" />
+                <circle pathLength={1} cx="32" cy="32" r="2" />
+                <path pathLength={1} d="M15 25a19 19 0 0 1 10-10" />
+                <path pathLength={1} d="M39 49a19 19 0 0 0 10-10" />
               </svg>
             </div>
             <div>

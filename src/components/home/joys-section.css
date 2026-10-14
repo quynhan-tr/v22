@@ -130,6 +130,38 @@
   }
 }
 
+/* Doodles draw themselves once their note has risen into view (see
+   ScrollReveal). Strokes go in hand order via --draw-delay / --draw-duration;
+   without JS or with reduced motion, reveal-armed is never set and they
+   simply show. */
+.reveal-armed [data-reveal] :is(.joy-note-art, .gallery-waves) :is(path, circle) {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+}
+
+.reveal-armed [data-reveal].is-revealed :is(.joy-note-art, .gallery-waves) :is(path, circle) {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--draw-duration, 0.7s) var(--ease-draw)
+    calc(var(--reveal-index, 0) * 80ms + 280ms + var(--draw-delay, 0ms));
+}
+
+/* Coffee: the cup, a breath, then the latte art. */
+.coffee-note path:nth-child(1) { --draw-duration: 0.55s; }
+.coffee-note path:nth-child(2) { --draw-duration: 0.6s; --draw-delay: 0.62s; }
+
+/* Record: rings from the outside in, then the shine. */
+.record-doodle circle:nth-child(1) { --draw-duration: 0.55s; }
+.record-doodle circle:nth-child(2) { --draw-duration: 0.45s; --draw-delay: 0.15s; }
+.record-doodle circle:nth-child(3) { --draw-duration: 0.35s; --draw-delay: 0.3s; }
+.record-doodle circle:nth-child(4) { --draw-duration: 0.2s; --draw-delay: 0.45s; }
+.record-doodle path { --draw-duration: 0.25s; --draw-delay: 0.6s; }
+.record-doodle path + path { --draw-delay: 0.8s; }
+
+/* Waves sit at the bottom of the video, so they wait until the eye gets
+   there; the second line follows the first. */
+.gallery-waves path:nth-child(1) { --draw-delay: 0.9s; }
+.gallery-waves path:nth-child(2) { --draw-delay: 1.2s; }
+
 .joy-note > div:not(.joy-note-art) {
   grid-column: 1;
   grid-row: 1;
