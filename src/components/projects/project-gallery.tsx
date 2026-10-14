@@ -1,34 +1,64 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useRef, useState } from "react";
+import { flushSync, preload } from "react-dom";
 import { Arrow } from "@/components/ui/illustrations";
 import { portfolio, type PortfolioProject } from "@/content/portfolio";
 
 type ProjectPreviewProps = {
   project: PortfolioProject;
   index?: number;
-  enlarged?: boolean;
 };
+
+const popupImageSizes = "(max-width: 760px) calc(100vw - 88px), 648px";
+
+function preloadProjectImage(project: PortfolioProject) {
+  const { props } = getImageProps({
+    src: project.image,
+    alt: project.alt,
+    fill: true,
+    sizes: popupImageSizes,
+  });
+
+  preload(props.src, {
+    as: "image",
+    imageSrcSet: props.srcSet,
+    imageSizes: props.sizes,
+  });
+}
+
+function PopupPreview({ project }: { project: PortfolioProject }) {
+  const [status, setStatus] = useState<"loading" | "loaded" | "error">("loading");
+
+  return (
+    <span
+      className="project-preview project-preview-large"
+      aria-busy={status === "loading"}
+    >
+      {status !== "loaded" && (
+        <span className="project-image-placeholder" role="status">
+          {status === "error" ? "Image unavailable" : "Loading image…"}
+        </span>
+      )}
+      <Image
+        src={project.image}
+        alt={project.alt}
+        fill
+        sizes={popupImageSizes}
+        loading="eager"
+        style={{ opacity: status === "loaded" ? 1 : 0 }}
+        onLoad={() => setStatus("loaded")}
+        onError={() => setStatus("error")}
+      />
+    </span>
+  );
+}
 
 function ProjectPreview({
   project,
   index = 0,
-  enlarged = false,
 }: ProjectPreviewProps) {
-  if (enlarged) {
-    return (
-      <span className="project-preview project-preview-large">
-        <Image
-          src={project.image}
-          alt={project.alt}
-          fill
-          sizes="(max-width: 760px) calc(100vw - 88px), 648px"
-        />
-      </span>
-    );
-  }
-
   return (
     <span
       className={`project-preview project-scene project-scene-${project.frame.style}`}
@@ -103,6 +133,9 @@ function ProjectCard({
     <article className="project">
       <button
         className="project-button"
+        onPointerEnter={() => preloadProjectImage(project)}
+        onPointerDown={() => preloadProjectImage(project)}
+        onFocus={() => preloadProjectImage(project)}
         onClick={() => onOpen(project)}
         aria-label={`Open ${project.title}`}
       >
@@ -152,12 +185,12 @@ function PopupDescription({ description }: { description: string }) {
 
 export function ProjectGallery() {
   const dialog = useRef<HTMLDialogElement>(null);
-  const [selected, setSelected] = useState<PortfolioProject>(
-    portfolio.projects[0],
-  );
+  const [selected, setSelected] = useState<PortfolioProject | null>(null);
 
   function openProject(project: PortfolioProject) {
-    setSelected(project);
+    preloadProjectImage(project);
+    // Commit the new content before the native dialog becomes visible.
+    flushSync(() => setSelected(project));
     dialog.current?.showModal();
   }
 
@@ -185,34 +218,36 @@ export function ProjectGallery() {
           if (event.target === event.currentTarget) closeProject();
         }}
       >
-        <div className="dialog-content">
-          <button
-            className="dialog-close"
-            aria-label="Close project"
-            onClick={closeProject}
-          >
-            ×
-          </button>
-          <ProjectPreview project={selected} enlarged />
-          <div className="dialog-meta">
-            <p className="eyebrow">{selected.category}</p>
-            <div className="project-links">
-              {selected.links.map((link) => (
-                <a
-                  className="text-link"
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  key={link.name}
-                >
-                  {link.name} <Arrow />
-                </a>
-              ))}
+        {selected && (
+          <div className="dialog-content">
+            <button
+              className="dialog-close"
+              aria-label="Close project"
+              onClick={closeProject}
+            >
+              ×
+            </button>
+            <PopupPreview key={selected.id} project={selected} />
+            <div className="dialog-meta">
+              <p className="eyebrow">{selected.category}</p>
+              <div className="project-links">
+                {selected.links.map((link) => (
+                  <a
+                    className="text-link"
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    key={link.name}
+                  >
+                    {link.name} <Arrow />
+                  </a>
+                ))}
+              </div>
             </div>
+            <h2 id="project-dialog-title">{selected.title}</h2>
+            <PopupDescription description={selected.popupDescription} />
           </div>
-          <h2 id="project-dialog-title">{selected.title}</h2>
-          <PopupDescription description={selected.popupDescription} />
-        </div>
+        )}
       </dialog>
     </>
   );
